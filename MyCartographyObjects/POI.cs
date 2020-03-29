@@ -2,6 +2,7 @@
 
 namespace MyCartographyObjects
 {
+	[Serializable]
 	public class POI : Coordonnees, ICartoObj
 	{
 		//Variables membres

@@ -85,9 +85,9 @@
 				<ColumnDefinition Width="10*"/>
 			</Grid.ColumnDefinitions>
 
-			<Button Content="Créer" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
-			<Button Content="Modifier" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
-			<Button Content="Supprimer" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
+			<Button Content="Créer" Click="Créer_Click" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
+			<Button Content="Modifier" Click="Modifier_Click" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
+			<Button Content="Supprimer" Click="Supprimer_Click" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
 			
 			<ComboBox
 			x:Name="ComboBoxChoixObjet"

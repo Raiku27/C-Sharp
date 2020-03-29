@@ -154,13 +154,21 @@ namespace Projet_Test
 			}*/
 
 			//Tester MyPersonalMapData
-			MyPersonalMapData mapData = new MyPersonalMapData("Gerard","Vincent","mail.vincent.gerard@gmail.com",new ObservableCollection<ICartoObj> { });
+			/*MyPersonalMapData mapData = new MyPersonalMapData("Gerard","Vincent","mail.vincent.gerard@gmail.com",new ObservableCollection<ICartoObj> { });
 			Polyline poly = new Polyline(new List<Coordonnees> { new Coordonnees(0,0),new Coordonnees(1,1)},Colors.Black,1);
 			Polygon polygon = new Polygon(new List<Coordonnees> { new Coordonnees(3,3)},Colors.Black,Colors.Black,1);
 			mapData.ObservableCollection.Add(poly);
 			mapData.ObservableCollection.Add(polygon);
 			mapData.Draw();
-			mapData.Save();
+			mapData.Save();*/
+
+			MyPersonalMapData mapdata = new MyPersonalMapData();
+			mapdata.Load("Vincent","Gerard");
+			Console.WriteLine(mapdata);
+			foreach(ICartoObj i in mapdata.ObservableCollection)
+			{
+				Console.WriteLine(i);
+			}
 
 			Console.ReadLine();
 		}

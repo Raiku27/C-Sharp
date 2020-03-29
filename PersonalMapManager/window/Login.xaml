@@ -65,7 +65,6 @@
 				VerticalContentAlignment="Center"
 				Margin="125,120,10,0"
 				Opacity="1" 
-				TextChanged="Nom_TextChanged"
 				Padding="0" 
 				BorderBrush="Black"
 				/>
@@ -96,7 +95,6 @@
 				VerticalContentAlignment="Center"
 				Margin="125,160,10,0"
 				Opacity="1" 
-				TextChanged="Prenom_TextChanged"
 				Padding="0" 
 				BorderBrush="Black"
 				/>
@@ -127,7 +125,6 @@
 				VerticalContentAlignment="Center"
 				Margin="125,200,10,0"
 				Opacity="1" 
-				TextChanged="Email_TextChanged"
 				Padding="0" 
 				BorderBrush="Black"
 				/>

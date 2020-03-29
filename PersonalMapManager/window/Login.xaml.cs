@@ -23,23 +23,9 @@ namespace PersonalMapManager
 	/// </summary>
 	public partial class Login : Window
 	{
-		private MyPersonalMapData myPersonalMapData = null;
 		public Login()
 		{
 			InitializeComponent();
-		}
-
-		private void Nom_TextChanged(object sender, TextChangedEventArgs e)
-		{
-
-		}
-		private void Prenom_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			
-		}
-		private void Email_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			
 		}
 
 		private void SeConnecter_Click(object sender, RoutedEventArgs e)

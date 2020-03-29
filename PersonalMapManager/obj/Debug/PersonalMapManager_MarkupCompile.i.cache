@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\App.xaml
-2-419086188
+31462391703
 
-91968101670
+101374912060
 18384015426
-Login.xaml;MainWindow.xaml;
+window\Login.xaml;window\MainWindow.xaml;window\PoiWindow.xaml;
 
-False
+True
 

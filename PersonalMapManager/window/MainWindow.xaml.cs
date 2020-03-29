@@ -1,8 +1,10 @@
 ﻿using MyCartographyObjects;
+using PersonalMapManager.window;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -79,6 +81,36 @@ namespace PersonalMapManager
 			AboutBox1 aboutBox = new AboutBox1();
 			aboutBox.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			aboutBox.Show();
+		}
+		public void Créer_Click(object sender, RoutedEventArgs e)
+		{
+			if (ComboBoxChoixObjet.SelectedIndex == 1)
+			{
+				//POI
+				POI temp = new POI();
+				PoiWindow poiWindow = new PoiWindow();
+				poiWindow.Owner = this;
+				poiWindow._poi = temp;
+				poiWindow.ShowDialog();
+				//Ajouter le nouveau poi dans la collection de myPersonalMapData ou la fenetre le fait en quittant????
+				myPersonalMapData.ObservableCollection.Add(poiWindow._poi);
+			}
+			else if (ComboBoxChoixObjet.SelectedIndex == 2)
+			{
+				//Trajet
+			}
+			else if (ComboBoxChoixObjet.SelectedIndex == 3)
+			{
+				//Surface
+			}
+		}
+		private void Modifier_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+		private void Supprimer_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
