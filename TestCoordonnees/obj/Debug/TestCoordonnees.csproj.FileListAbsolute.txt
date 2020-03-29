@@ -1,0 +1,9 @@
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\bin\Debug\TestCoordonnees.exe.config
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\bin\Debug\TestCoordonnees.exe
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\bin\Debug\TestCoordonnees.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\bin\Debug\MyCartographyObjects.dll
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\bin\Debug\MyCartographyObjects.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\obj\Debug\TestCoordonnees.csprojAssemblyReference.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\obj\Debug\TestCoordonnees.csproj.CopyComplete
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\obj\Debug\TestCoordonnees.exe
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestCoordonnees\obj\Debug\TestCoordonnees.pdb

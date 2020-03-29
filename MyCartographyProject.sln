@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCartographyObjects", "MyCartographyObjects\MyCartographyObjects.csproj", "{5A13CCE6-FAE7-45FE-A4E9-7D377E471647}"
+	ProjectSection(ProjectDependencies) = postProject
+		{21252327-48BE-4D7F-9A66-38E93A29F4C9} = {21252327-48BE-4D7F-9A66-38E93A29F4C9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet_Test", "TestCoordonnees\Projet_Test.csproj", "{2490051F-B741-4E32-80BB-BB7C727D9167}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C56D287-0903-4CC0-922E-C349BF02779C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathUtils", "MathUtils\MathUtils.csproj", "{21252327-48BE-4D7F-9A66-38E93A29F4C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalMapManager", "PersonalMapManager\PersonalMapManager.csproj", "{3640FE89-9413-489B-B0CF-6A10B518247F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWindow", "TestWindow\TestWindow.csproj", "{3964A8DA-C624-4464-BC50-EF8C3C7929B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A13CCE6-FAE7-45FE-A4E9-7D377E471647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A13CCE6-FAE7-45FE-A4E9-7D377E471647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A13CCE6-FAE7-45FE-A4E9-7D377E471647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A13CCE6-FAE7-45FE-A4E9-7D377E471647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2490051F-B741-4E32-80BB-BB7C727D9167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2490051F-B741-4E32-80BB-BB7C727D9167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2490051F-B741-4E32-80BB-BB7C727D9167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2490051F-B741-4E32-80BB-BB7C727D9167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21252327-48BE-4D7F-9A66-38E93A29F4C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21252327-48BE-4D7F-9A66-38E93A29F4C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21252327-48BE-4D7F-9A66-38E93A29F4C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21252327-48BE-4D7F-9A66-38E93A29F4C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3640FE89-9413-489B-B0CF-6A10B518247F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3640FE89-9413-489B-B0CF-6A10B518247F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3640FE89-9413-489B-B0CF-6A10B518247F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3640FE89-9413-489B-B0CF-6A10B518247F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3964A8DA-C624-4464-BC50-EF8C3C7929B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3964A8DA-C624-4464-BC50-EF8C3C7929B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3964A8DA-C624-4464-BC50-EF8C3C7929B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3964A8DA-C624-4464-BC50-EF8C3C7929B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07DC6FFE-F26D-4D98-896F-C9884364E592}
+	EndGlobalSection
+EndGlobal

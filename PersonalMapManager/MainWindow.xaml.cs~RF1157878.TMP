@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace PersonalMapManager
+{
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			//Login
+			Login login = new Login();
+			login.Owner = this;
+			login.Show();
+			login.Focus();
+				
+			//Demarer l'app si on est login
+			InitializeComponent();
+			this.Hide();
+		}
+
+		private void About_Click(object sender, RoutedEventArgs e)
+		{
+			AboutBox1 aboutBox = new AboutBox1();
+			aboutBox.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			aboutBox.Show();
+		}
+	}
+}

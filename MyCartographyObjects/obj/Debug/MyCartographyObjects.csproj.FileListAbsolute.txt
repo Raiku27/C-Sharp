@@ -1,0 +1,9 @@
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\bin\Debug\MyCartographyObjects.dll
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\bin\Debug\MyCartographyObjects.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\obj\Debug\MyCartographyObjects.csprojAssemblyReference.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\obj\Debug\MyCartographyObjects.dll
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\obj\Debug\MyCartographyObjects.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\bin\Debug\MathUtils.dll
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\bin\Debug\MathUtils.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\obj\Debug\MyCartographyObjects.csproj.CopyComplete
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MyCartographyObjects\obj\Debug\MyCartographyObjects.csproj.CoreCompileInputs.cache

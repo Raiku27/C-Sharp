@@ -1,0 +1,9 @@
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\bin\Debug\netstandard2.0\MathUtils.deps.json
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\bin\Debug\netstandard2.0\MathUtils.dll
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\bin\Debug\netstandard2.0\MathUtils.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\obj\Debug\netstandard2.0\MathUtils.csprojAssemblyReference.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\obj\Debug\netstandard2.0\MathUtils.AssemblyInfoInputs.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\obj\Debug\netstandard2.0\MathUtils.AssemblyInfo.cs
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\obj\Debug\netstandard2.0\MathUtils.dll
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\obj\Debug\netstandard2.0\MathUtils.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\MathUtils\obj\Debug\netstandard2.0\MathUtils.csproj.CoreCompileInputs.cache

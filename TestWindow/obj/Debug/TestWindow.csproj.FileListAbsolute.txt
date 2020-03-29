@@ -1,0 +1,15 @@
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\bin\Debug\TestWindow.exe.config
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\bin\Debug\TestWindow.exe
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\bin\Debug\TestWindow.pdb
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow.csprojAssemblyReference.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\MainWindow.g.cs
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\App.g.cs
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow_MarkupCompile.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow_MarkupCompile.lref
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\MainWindow.baml
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow.g.resources
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow.Properties.Resources.resources
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow.csproj.GenerateResource.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow.csproj.CoreCompileInputs.cache
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow.exe
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\TestWindow\obj\Debug\TestWindow.pdb

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "JGlbrk5qjYDsGX4Yujoq4CQS46Ak2v+IDbOrHLkW/xP5mAPOtdFoydnL50TuQab8VpG8G+mckM2cD/liBWfHnQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Vincent\\OneDrive - Enseignement de la Province de Liège\\Cours\\B2\\C#\\MyCartographyObjects\\MathUtils\\MathUtils.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
