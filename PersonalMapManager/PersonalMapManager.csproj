@@ -67,6 +67,9 @@
     <Compile Include="window\PoiWindow.xaml.cs">
       <DependentUpon>PoiWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\PolylineWindow.xaml.cs">
+      <DependentUpon>PolylineWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="window\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +96,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="window\PoiWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\PolylineWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

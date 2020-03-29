@@ -29,3 +29,5 @@ C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\My
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\Login.baml
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\MainWindow.baml
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PoiWindow.baml
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PolylineWindow.g.cs
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PolylineWindow.baml

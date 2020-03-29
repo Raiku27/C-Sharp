@@ -1,17 +1,16 @@
-﻿<Window x:Class="PersonalMapManager.window.PoiWindow"
+﻿<Window x:Class="PersonalMapManager.window.PolylineWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonalMapManager.window"
         mc:Ignorable="d"
-        Title="Point Of Interest (POI)"
+        Title="Polyline"
 		Height="450"
 		Width="350"
 		ResizeMode="NoResize"
-		WindowStartupLocation="CenterScreen"
 		>
-	<Grid>
+    <Grid Height="421" VerticalAlignment="Bottom">
 		<Border>
 			<Border.Background>
 				<LinearGradientBrush>
@@ -21,14 +20,34 @@
 			</Border.Background>
 		</Border>
 
-		<Label Content="Point of Interest: " Margin="20,20,20,351" FontFamily="Unispace" FontSize="24" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Latitude:" Margin="20,94,170,287" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Longitude:" Margin="20,138,170,243" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Description:" Margin="20,210,150,171" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Polyline:" Margin="20,20,20,351" FontFamily="Unispace" FontSize="24" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Couleur:" Margin="20,70,192,311" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Epaisseur:" Margin="25,115,170,266" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<TextBox x:Name="TextBoxLatitude" Text="0,000" Margin="179,94,20,287" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
-		<TextBox x:Name="TextBoxLongitude" Text="0,000" Margin="179,139,20,242" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
-		<TextBox x:Name="TextBoxDescription" TextWrapping="WrapWithOverflow" Margin="20,255,20,105" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="15" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="1" Foreground="Gray"/>
+		<ListBox Margin="174,70,20,311" FontFamily="Unispace" FontSize="22" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+						<StackPanel.Resources>
+							<Style TargetType="TextBlock">
+								<Setter Property="Margin" Value="5,0,0,0"/>
+							</Style>
+						</StackPanel.Resources>
+						<Rectangle Width="20" Fill="{Binding SampleBrush}"/>
+						<TextBlock Width="80" Text="{Binding ColorName}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		<TextBox Text="1" FontFamily="Unispace" FontSize="22" Margin="174,115,20,266" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+
+		<ListBox Margin="20,291,20,55">
+			<ListBoxItem Content="Coords1"/>
+			<ListBoxItem Content="Coords2"/>
+			<ListBoxItem Content="Coords3"/>
+			<ListBoxItem Content="Coords4"/>
+		</ListBox>
+
 
 		<Button x:Name="ButtonAnnuler" Click="ButtonAnnuler_Click" Content="Annuler" Margin="20,0,20,20" Width="70" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="Red" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 		<Button x:Name="ButtonAppliquer" Click="ButtonAppliquer_Click" Content="Appliquer" Margin="20,0,20,20" Width="90" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="Green" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
