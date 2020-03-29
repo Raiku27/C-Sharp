@@ -35,11 +35,10 @@ namespace PersonalMapManager
 		//Méthodes
 		private void MainWindow_Closing(object sender, CancelEventArgs e)
 		{
-			
+			myPersonalMapData.Save();
 		}
 		private void Open_Click(object sender, RoutedEventArgs e)
 		{
-			myPersonalMapData = new MyPersonalMapData();
 			if (myPersonalMapData.Load(myPersonalMapData.Prenom, myPersonalMapData.Nom))
 			{
 				MessageBox.Show("Erreur: myPersonalMapData.Load(prenom,nom)");
@@ -72,7 +71,8 @@ namespace PersonalMapManager
 		}
 		private void Exit_Click(object sender, RoutedEventArgs e)
 		{
-			
+			myPersonalMapData.Save();
+			this.Close();
 		}
 		private void About_Click(object sender, RoutedEventArgs e)
 		{
