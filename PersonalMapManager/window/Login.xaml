@@ -20,9 +20,7 @@
 					<LinearGradientBrush>
 						<GradientStop Color="#0935e6" Offset="0.0"/>
 						<GradientStop Color="#5c6bab" Offset="1"/>
-
 					</LinearGradientBrush>
-
 				</Border.Background>
 			</Border>
 			<Label 

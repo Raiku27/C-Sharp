@@ -25,26 +25,28 @@ namespace PersonalMapManager.window
 		public PolylineWindow()
 		{
 			InitializeComponent();
-			foreach(var colorValue in Enum.GetValues(typeof(KnownColor)))
+			ListBoxCoordonnees.Items.Add("Debut");
+
+			/*foreach(var colorValue in Enum.GetValues(typeof(KnownColor)))
 			{
 				Color color = Color.FromKnownColor((KnownColor)colorValue);
 
-			}
+			}*/
 		}
 
 		private void ButtunOk_Click(object sender, RoutedEventArgs e)
 		{
-			
+			ListBoxCoordonnees.Items.Add("ok");
 		}
 
 		private void ButtonAppliquer_Click(object sender, RoutedEventArgs e)
 		{
-			
+			ListBoxCoordonnees.Items.Add("Appliquer");
 		}
 
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
 		{
-	
+			ListBoxCoordonnees.Items.Add("Annuler");
 		}
 
 		

@@ -24,28 +24,24 @@
 		<Label Content="Couleur:" Margin="20,70,192,311" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 		<Label Content="Epaisseur:" Margin="25,115,170,266" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<ListBox Margin="174,70,20,311" FontFamily="Unispace" FontSize="22" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1">
-			<ListBox.ItemTemplate>
+		<ComboBox x:Name="ComboBoxColors" Margin="174,70,20,311" FontFamily="Unispace" FontSize="22" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1">
+			<ComboBox.ItemTemplate>
 				<DataTemplate>
-					<StackPanel Orientation="Horizontal" Margin="0,3,0,0">
-						<StackPanel.Resources>
-							<Style TargetType="TextBlock">
-								<Setter Property="Margin" Value="5,0,0,0"/>
-							</Style>
-						</StackPanel.Resources>
-						<Rectangle Width="20" Fill="{Binding SampleBrush}"/>
-						<TextBlock Width="80" Text="{Binding ColorName}"/>
+					<StackPanel Orientation="Horizontal" >
+						<Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />
+						<TextBlock Text="{Binding Name}" />
 					</StackPanel>
 				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
 		<TextBox Text="1" FontFamily="Unispace" FontSize="22" Margin="174,115,20,266" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
 
-		<ListBox Margin="20,291,20,55">
-			<ListBoxItem Content="Coords1"/>
-			<ListBoxItem Content="Coords2"/>
-			<ListBoxItem Content="Coords3"/>
-			<ListBoxItem Content="Coords4"/>
+		<ListBox x:Name="ListBoxCoordonnees" Margin="20,291,20,55">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<!-- a finir  https://blog.magnusmontin.net/2014/08/13/tabbing-between-items-in-wpf-listbox/-->
+				</DataTemplate>
+			</ListBox.ItemTemplate>
 		</ListBox>
 
 
