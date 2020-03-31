@@ -21,28 +21,27 @@ namespace PersonalMapManager
 	/// <summary>
 	/// Interaction logic for Login.xaml
 	/// </summary>
-	public partial class Login : Window
+	public partial class LoginWindow : Window
 	{
-		public Login()
+		string nom = "";
+		string prenom = "";
+		string email = "";
+		public LoginWindow()
 		{
 			InitializeComponent();
+			DataContext = this;
 		}
 
 		private void SeConnecter_Click(object sender, RoutedEventArgs e)
 		{
-			//Verifier la connexion
-			string nom = TextBoxNom.Text;
-			string prenom = TextBoxPrenom.Text;
 			MyPersonalMapData temp = new MyPersonalMapData();
-			if(temp.Load(prenom,nom))
+			if (temp.Load(prenom, nom))
 			{
-				//Erreur
 				TextBoxInfo.Text = "Ce compte n'existe pas!";
 				return;
 			}
 			MainWindow mainWindow = new MainWindow();
 			this.Hide();
-			//mainWindow.myPersonalMapData = temp;
 			mainWindow.myPersonalMapData.Nom = nom;
 			mainWindow.myPersonalMapData.Prenom = prenom;
 			mainWindow.Show();
@@ -51,19 +50,19 @@ namespace PersonalMapManager
 
 		private void CréeUnCompte_Click(object sender, RoutedEventArgs e)
 		{
-			if (TextBoxNom.Text.Length == 0 || TextBoxPrenom.Text.Length == 0 || TextBoxEmail.Text.Length == 0)
+			if (nom.Length == 0 || prenom.Length == 0 || email.Length == 0)
 			{
 				TextBoxInfo.Text = "Un champs est vide!";
 				return;
 			}
-				
-			MyPersonalMapData temp = new MyPersonalMapData(TextBoxNom.Text, TextBoxPrenom.Text, TextBoxEmail.Text, new ObservableCollection<ICartoObj>{ });
+
+			MyPersonalMapData temp = new MyPersonalMapData(nom, prenom, email, new ObservableCollection<ICartoObj> { });
 			temp.Save();
 			MainWindow mainWindow = new MainWindow();
 			this.Hide();
-			//mainWindow.myPersonalMapData = temp;
-			mainWindow.myPersonalMapData.Nom = TextBoxNom.Text;
-			mainWindow.myPersonalMapData.Prenom = TextBoxPrenom.Text;
+			mainWindow.myPersonalMapData.Nom = nom;
+			mainWindow.myPersonalMapData.Prenom = prenom;
+			mainWindow.myPersonalMapData.Email = email;
 			mainWindow.Show();
 			this.Close();
 		}
@@ -73,8 +72,8 @@ namespace PersonalMapManager
 
 		}
 
-		
 
-		
+
+
 	}
 }

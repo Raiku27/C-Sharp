@@ -64,13 +64,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="window\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\PoiWindow.xaml.cs">
       <DependentUpon>PoiWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="window\PolylineWindow.xaml.cs">
       <DependentUpon>PolylineWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="window\Login.xaml">
+    <Page Include="window\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,9 +90,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="window\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
