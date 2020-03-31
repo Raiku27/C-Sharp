@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,11 +19,15 @@ using Color = System.Drawing.Color;
 
 namespace PersonalMapManager.window
 {
-	/// <summary>
-	/// Interaction logic for PolylineWindow.xaml
-	/// </summary>
-	public partial class PolylineWindow : Window
+
+	public partial class PolylineWindow : Window,INotifyPropertyChanged
 	{
+		//Variables Membres
+		public event PropertyChangedEventHandler PropertyChanged;
+		public string _couleur;
+		public string _epaisseur;
+
+
 		public PolylineWindow()
 		{
 			InitializeComponent();
@@ -33,6 +39,8 @@ namespace PersonalMapManager.window
 
 			}*/
 		}
+
+		
 
 		private void ButtunOk_Click(object sender, RoutedEventArgs e)
 		{
@@ -49,6 +57,11 @@ namespace PersonalMapManager.window
 			ListBoxCoordonnees.Items.Add("Annuler");
 		}
 
-		
+		//Interfaces
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }

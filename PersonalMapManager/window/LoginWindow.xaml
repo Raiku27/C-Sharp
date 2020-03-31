@@ -11,7 +11,7 @@
 		WindowStyle="SingleBorderWindow"
 		ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen"
-		Closing="Login_Closing"
+		Closing="LoginWindow_Closing"
 		>
 	<Grid>
 		<Grid>
@@ -53,7 +53,7 @@
 				x:Name="TextBoxNom"
 				FontFamily="Unispace" 
 				FontSize="18"
-				Text="{Binding nom}"
+				Text="{Binding Nom}"
 				Foreground="Gray"
 				Background="Transparent"
 				BorderThickness="1"
@@ -83,7 +83,7 @@
 				x:Name="TextBoxPrenom"
 				FontFamily="Unispace" 
 				FontSize="18"
-				Text="{Binding prenom}"
+				Text="{Binding Prenom}"
 				Foreground="Gray"
 				Background="Transparent"
 				BorderThickness="1"
@@ -113,7 +113,7 @@
 				x:Name="TextBoxEmail"
 				FontFamily="Unispace" 
 				FontSize="18"
-				Text="{Binding email}"
+				Text="{Binding Email}"
 				Foreground="Gray"
 				Background="Transparent"
 				BorderThickness="1"

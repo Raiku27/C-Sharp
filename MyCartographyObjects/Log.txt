@@ -1,0 +1,31 @@
+[MyPersonalMapData][Constructeur]newNom:  newPrenom:  newEmail:  newObservableCollection: System.Collections.ObjectModel.ObservableCollection`1[MyCartographyObjects.ICartoObj]
+[MyPersonalMapData][Nom]set 
+[MyPersonalMapData][Prenom]set 
+[MyPersonalMapData][Email]set 
+[MyPersonalMapData][setObservableCollection]newObservableCollection = System.Collections.ObjectModel.ObservableCollection`1[MyCartographyObjects.ICartoObj]
+[MyPersonalMapData][Constructeur]
+[MyPersonalMapData][Load]
+[MyPersonalMapData][Prenom]set Vincent
+[MyPersonalMapData][Nom]set Gerard
+[MyPersonalMapData][Email]set mail
+[MyPersonalMapData][setObservableCollection]newObservableCollection = System.Collections.ObjectModel.ObservableCollection`1[MyCartographyObjects.ICartoObj]
+[MyPersonalMapData][ToString]
+[MyPersonalMapData][ObservableCollection]get System.Collections.ObjectModel.ObservableCollection`1[MyCartographyObjects.ICartoObj]
+[POI][ToString]
+[POI][Desciption]get
+[CartoObj][Id]get
+[POI][Desciption]get
+[Coordonnees][Latitude]get
+[Coordonnees][Longitude]get
+[POI][ToString]
+[POI][Desciption]get
+[CartoObj][Id]get
+[POI][Desciption]get
+[Coordonnees][Latitude]get
+[Coordonnees][Longitude]get
+[POI][ToString]
+[POI][Desciption]get
+[CartoObj][Id]get
+[POI][Desciption]get
+[Coordonnees][Latitude]get
+[Coordonnees][Longitude]get

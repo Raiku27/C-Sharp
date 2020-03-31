@@ -9,8 +9,7 @@
 		Height="450"
 		Width="350"
 		ResizeMode="NoResize"
-		WindowStartupLocation="CenterScreen"
-		>
+		WindowStartupLocation="CenterScreen">
 	<Grid>
 		<Border>
 			<Border.Background>
@@ -21,14 +20,14 @@
 			</Border.Background>
 		</Border>
 
-		<Label Content="Point of Interest: " Margin="20,20,20,351" FontFamily="Unispace" FontSize="24" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Point of Interest:" Margin="20,20,20,351" FontFamily="Unispace" FontSize="24" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 		<Label Content="Latitude:" Margin="20,94,170,287" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 		<Label Content="Longitude:" Margin="20,138,170,243" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 		<Label Content="Description:" Margin="20,210,150,171" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<TextBox x:Name="TextBoxLatitude" Text="0,000" Margin="179,94,20,287" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
-		<TextBox x:Name="TextBoxLongitude" Text="0,000" Margin="179,139,20,242" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
-		<TextBox x:Name="TextBoxDescription" TextWrapping="WrapWithOverflow" Margin="20,255,20,105" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="15" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="1" Foreground="Gray"/>
+		<TextBox x:Name="TextBoxLatitude" Text="{Binding Latitude}" Margin="179,94,20,287" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
+		<TextBox x:Name="TextBoxLongitude" Text="{Binding Longitude}" Margin="179,139,20,242" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
+		<TextBox x:Name="TextBoxDescription" Text="{Binding Description}" TextWrapping="WrapWithOverflow" Margin="20,255,20,105" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="15" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="1" Foreground="Gray"/>
 
 		<Button x:Name="ButtonAnnuler" Click="ButtonAnnuler_Click" Content="Annuler" Margin="20,0,20,20" Width="70" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="Red" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 		<Button x:Name="ButtonAppliquer" Click="ButtonAppliquer_Click" Content="Appliquer" Margin="20,0,20,20" Width="90" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="Green" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>

@@ -23,10 +23,8 @@ C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\My
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\bin\Debug\MyCartographyObjects.pdb
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\bin\Debug\MathUtils.pdb
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\PersonalMapManager.csproj.CoreCompileInputs.cache
-C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\Login.g.cs
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\MainWindow.g.cs
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PoiWindow.g.cs
-C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\Login.baml
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\MainWindow.baml
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PoiWindow.baml
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PolylineWindow.g.cs

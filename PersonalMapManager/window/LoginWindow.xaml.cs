@@ -15,65 +15,111 @@ using System.Threading;
 using System.ComponentModel;
 using MyCartographyObjects;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace PersonalMapManager
 {
 	/// <summary>
 	/// Interaction logic for Login.xaml
 	/// </summary>
-	public partial class LoginWindow : Window
+	public partial class LoginWindow : Window, INotifyPropertyChanged
 	{
-		string nom = "";
-		string prenom = "";
-		string email = "";
+		//Variables Memebres
+		string _nom = "";
+		string _prenom = "";
+		string _email = "";
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		//Contructeur
 		public LoginWindow()
 		{
 			InitializeComponent();
 			DataContext = this;
 		}
 
+		//Propriétés
+		public string Nom
+		{
+			set
+			{
+				_nom = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _nom;
+			}
+		}
+		public string Prenom
+		{
+			set
+			{
+				_prenom = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _prenom;
+			}
+		}
+		public string Email
+		{
+			set
+			{
+				_email = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _email;
+			}
+		}
+
 		private void SeConnecter_Click(object sender, RoutedEventArgs e)
 		{
 			MyPersonalMapData temp = new MyPersonalMapData();
-			if (temp.Load(prenom, nom))
+			if (temp.Load(Prenom, Nom))
 			{
 				TextBoxInfo.Text = "Ce compte n'existe pas!";
 				return;
 			}
 			MainWindow mainWindow = new MainWindow();
 			this.Hide();
-			mainWindow.myPersonalMapData.Nom = nom;
-			mainWindow.myPersonalMapData.Prenom = prenom;
+			mainWindow.myPersonalMapData.Nom = Nom;
+			mainWindow.myPersonalMapData.Prenom = Prenom;
 			mainWindow.Show();
 			this.Close();
 		}
 
 		private void CréeUnCompte_Click(object sender, RoutedEventArgs e)
 		{
-			if (nom.Length == 0 || prenom.Length == 0 || email.Length == 0)
+			if (Nom.Length == 0 || Prenom.Length == 0 || Email.Length == 0)
 			{
 				TextBoxInfo.Text = "Un champs est vide!";
 				return;
 			}
 
-			MyPersonalMapData temp = new MyPersonalMapData(nom, prenom, email, new ObservableCollection<ICartoObj> { });
+			MyPersonalMapData temp = new MyPersonalMapData(Nom, Prenom, Email, new ObservableCollection<ICartoObj> { });
 			temp.Save();
 			MainWindow mainWindow = new MainWindow();
 			this.Hide();
-			mainWindow.myPersonalMapData.Nom = nom;
-			mainWindow.myPersonalMapData.Prenom = prenom;
-			mainWindow.myPersonalMapData.Email = email;
+			mainWindow.myPersonalMapData.Nom = Nom;
+			mainWindow.myPersonalMapData.Prenom = Prenom;
+			mainWindow.myPersonalMapData.Email = Email;
 			mainWindow.Show();
 			this.Close();
 		}
 
-		private void Login_Closing(object sender, CancelEventArgs e)
+		private void LoginWindow_Closing(object sender, CancelEventArgs e)
 		{
 
 		}
 
-
-
-
+		//Interfaces
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }

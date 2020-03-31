@@ -87,13 +87,13 @@ namespace PersonalMapManager
 			if (ComboBoxChoixObjet.SelectedIndex == 1)
 			{
 				//POI
-				POI temp = new POI();
 				PoiWindow poiWindow = new PoiWindow();
 				poiWindow.Owner = this;
-				poiWindow._poi = temp;
 				poiWindow.ShowDialog();
-				//Ajouter le nouveau poi dans la collection de myPersonalMapData ou la fenetre le fait en quittant????
-				myPersonalMapData.ObservableCollection.Add(poiWindow._poi);
+				if(poiWindow.Poi != null)
+				{
+					myPersonalMapData.ObservableCollection.Add(poiWindow._poi);
+				}
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 2)
 			{
