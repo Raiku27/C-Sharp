@@ -19,7 +19,6 @@ using Color = System.Drawing.Color;
 
 namespace PersonalMapManager.window
 {
-
 	public partial class PolylineWindow : Window,INotifyPropertyChanged
 	{
 		//Variables Membres
