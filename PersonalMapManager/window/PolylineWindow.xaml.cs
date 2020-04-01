@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -26,19 +27,21 @@ namespace PersonalMapManager.window
 	{
 		//Variables Membres
 		public event PropertyChangedEventHandler PropertyChanged;
-		public MyCartographyObjects.Polyline _polyline = null;
-		public MyCartographyObjects.Polyline _temp = null;
-		public MyCartographyObjects.Polyline _debut = null;
+		public MyCartographyObjects.Polyline _polyline;
+		private MyCartographyObjects.Polyline _temp = new MyCartographyObjects.Polyline();
 		private bool hasAppliquerBeenClicked = false;
+		private string _stringLatitude;
+		private string _stringLongitude;
 		public string _couleur = "";
 		public string _epaisseur = "1";
-
 
 		//Constructeur
 		public PolylineWindow()
 		{
 			InitializeComponent();
 			DataContext = this;
+			Latitude = "0,000";
+			Longitude = "0,000";
 
 			foreach (PropertyInfo property in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
 				if (property.PropertyType == typeof(System.Drawing.Color))
@@ -53,7 +56,6 @@ namespace PersonalMapManager.window
 			set
 			{
 				_polyline = value;
-				_debut = value;
 				OnPropertyChanged();
 			}
 			get
@@ -85,15 +87,53 @@ namespace PersonalMapManager.window
 				return _epaisseur;
 			}
 		}
-
-		private void ButtonRetirer_Click(object sender, RoutedEventArgs e)
+		public string Latitude
 		{
-			ListBoxCoordonnees.Items.Add("Retirer");
+			set
+			{
+				_stringLatitude = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _stringLatitude;
+			}
 		}
+		public string Longitude
+		{
+			set
+			{
+				_stringLongitude = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _stringLongitude;
+			}
+		}
+
 		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
 		{
-			ListBoxCoordonnees.Items.Add("Ajouter");
+			double outLatitude;
+			double outLongitude;
+			double.TryParse(Latitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLatitude);
+			double.TryParse(Longitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLongitude);
+			_temp.Collection.Add(new Coordonnees(outLatitude,outLongitude));
+			ListBoxCoordonnees.Items.Add(new Coordonnees(outLatitude, outLongitude).ToString());
+			ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
 		}
+		private void ButtonRetirer_Click(object sender, RoutedEventArgs e)
+		{
+			if(ListBoxCoordonnees.Items.Count != 0)
+			{ 
+				int numeroIndex = ListBoxCoordonnees.SelectedIndex;
+				Coordonnees coords = _temp.Collection[numeroIndex];
+				_temp.Collection.Remove(coords);
+				ListBoxCoordonnees.Items.RemoveAt(numeroIndex);
+				ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
+			}
+		}
+
 
 		private void ButtunOk_Click(object sender, RoutedEventArgs e)
 		{

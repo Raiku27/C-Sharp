@@ -167,7 +167,24 @@ namespace Projet_Test
 			Console.WriteLine(mapdata);
 			foreach(ICartoObj i in mapdata.ObservableCollection)
 			{
-				Console.WriteLine(i);
+				if(i is Polyline)
+				{
+					Polyline p = i as Polyline;
+					Console.WriteLine("Polyline : {0}",p.Collection.Count);
+
+					foreach (Coordonnees c in p.Collection)
+					{
+						Console.Write("\t\t -");
+						Console.WriteLine(c);
+					}
+				}
+				if(i is POI)
+				{
+					POI p = i as POI;
+
+					Console.WriteLine(p);
+				}
+				//Console.WriteLine(i);
 			}
 
 			Console.ReadLine();

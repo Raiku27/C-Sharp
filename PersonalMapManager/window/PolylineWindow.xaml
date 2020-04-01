@@ -10,7 +10,7 @@
 		Width="500"
 		ResizeMode="NoResize"
 		Closing="Window_Closing"
-		WindowStartupLocation="CenterOwner"
+		WindowStartupLocation="CenterScreen"
 		>
     <Grid Height="421" VerticalAlignment="Bottom">
 		<Border>
@@ -34,8 +34,8 @@
 		<Label Content="Latitude:" Margin="40,198,175,188" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 		<Label Content="Longitude:" Margin="40,238,155,148" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<TextBox Text="0.000" FontFamily="Unispace" FontSize="18" Margin="174,198,175,188" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
-		<TextBox Text="0.000" FontFamily="Unispace" FontSize="18" Margin="174,237,175,149" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+		<TextBox Text="{Binding Latitude}" FontFamily="Unispace" FontSize="18" Margin="174,198,175,188" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+		<TextBox Text="{Binding Longitude}" FontFamily="Unispace" FontSize="18" Margin="174,237,175,149" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
 
 		<Button x:Name="ButtonAjouter" Click="ButtonAjouter_Click" Margin="344,198,20,188" Content="Ajouter" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Green"/>
 		<Button x:Name="ButtonRetirer" Click="ButtonRetirer_Click" Margin="344,237,20,149" Content="Retirer" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Red"/>
