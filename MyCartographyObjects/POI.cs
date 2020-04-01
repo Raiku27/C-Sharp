@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MyCartographyObjects
 {
@@ -36,6 +38,7 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[POI][Desciption]set");
 				_description = value;
+				OnPropertyChanged();
 			}
 			get 
 			{

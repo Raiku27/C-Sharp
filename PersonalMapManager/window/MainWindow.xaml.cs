@@ -37,7 +37,7 @@ namespace PersonalMapManager
 		//Méthodes
 		private void MainWindow_Closing(object sender, CancelEventArgs e)
 		{
-			myPersonalMapData.Save();
+
 		}
 		private void Open_Click(object sender, RoutedEventArgs e)
 		{
@@ -73,7 +73,6 @@ namespace PersonalMapManager
 		}
 		private void Exit_Click(object sender, RoutedEventArgs e)
 		{
-			myPersonalMapData.Save();
 			this.Close();
 		}
 		private void About_Click(object sender, RoutedEventArgs e)
@@ -92,12 +91,19 @@ namespace PersonalMapManager
 				poiWindow.ShowDialog();
 				if(poiWindow.Poi != null)
 				{
-					myPersonalMapData.ObservableCollection.Add(poiWindow._poi);
+					myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
 				}
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 2)
 			{
 				//Trajet
+				PolylineWindow polylineWindow = new PolylineWindow();
+				polylineWindow.Owner = this;
+				polylineWindow.ShowDialog();
+				if(polylineWindow.Polyline != null)
+				{
+					myPersonalMapData.ObservableCollection.Add(polylineWindow.Polyline);
+				}
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 3)
 			{

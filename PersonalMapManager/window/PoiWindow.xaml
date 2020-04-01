@@ -9,7 +9,9 @@
 		Height="450"
 		Width="350"
 		ResizeMode="NoResize"
-		WindowStartupLocation="CenterScreen">
+		WindowStartupLocation="CenterScreen"
+		Closing="POIWindow_Closing"
+		>
 	<Grid>
 		<Border>
 			<Border.Background>
@@ -21,11 +23,11 @@
 		</Border>
 
 		<Label Content="Point of Interest:" Margin="20,20,20,351" FontFamily="Unispace" FontSize="24" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Latitude:" Margin="20,94,170,287" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Longitude:" Margin="20,138,170,243" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Description:" Margin="20,210,150,171" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Latitude:" Margin="20,89,170,287" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Longitude:" Margin="20,134,170,242" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Description:" Margin="20,210,144,166" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<TextBox x:Name="TextBoxLatitude" Text="{Binding Latitude}" Margin="179,94,20,287" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
+		<TextBox x:Name="TextBoxLatitude"  Text="{Binding Latitude}" Margin="179,94,20,287" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
 		<TextBox x:Name="TextBoxLongitude" Text="{Binding Longitude}" Margin="179,139,20,242" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
 		<TextBox x:Name="TextBoxDescription" Text="{Binding Description}" TextWrapping="WrapWithOverflow" Margin="20,255,20,105" Background="Transparent" BorderBrush="White" BorderThickness="1" FontFamily="Unispace" FontSize="15" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="1" Foreground="Gray"/>
 

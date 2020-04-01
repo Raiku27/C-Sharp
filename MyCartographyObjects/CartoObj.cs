@@ -1,13 +1,17 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MyCartographyObjects
 {
 	[Serializable]
-	public abstract class CartoObj
+	public abstract class CartoObj : INotifyPropertyChanged
 	{
 		//Variables memebres
 		private static int _compteur = 0;
 		private int _id;
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		//Constructeurs
 		public CartoObj()
@@ -29,12 +33,13 @@ namespace MyCartographyObjects
 			get 
 			{
 				Debug.Log("[CartoObj][Id]get");
-				return _id; 
+				return _id;
 			}
 			set
 			{
 				Debug.Log("[CartoObj][Id]set");
 				_id = value;
+				OnPropertyChanged();
 			}
 		}
 
@@ -116,7 +121,14 @@ namespace MyCartographyObjects
 			//si on arrive ici c'est que le point n'est pas proche de la  droite AB
 			return false;
 		}
-	
+
+		//Interfaces
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
 
 		//Surcharge Opérateurs
 		public override string ToString()

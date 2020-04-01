@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
 namespace MyCartographyObjects
 {
 	[Serializable]
-	public class Polygon : CartoObj, IIsPointClose, ICartoObj
+	public class Polygon : CartoObj, IIsPointClose, ICartoObj, INotifyPropertyChanged
 	{
 		//Variables Membres
 		private List<Coordonnees> _collection;
@@ -34,7 +36,8 @@ namespace MyCartographyObjects
 			set 
 			{
 				Debug.Log("[Polygon][Collection]set");
-				_collection = value; 
+				_collection = value;
+				OnPropertyChanged();
 			}
 			get 
 			{
@@ -48,6 +51,7 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[Polygon][RemplissageColor]set");
 				_remplissage = value.ToString();
+				OnPropertyChanged();
 			}
 			get
 			{
@@ -60,7 +64,8 @@ namespace MyCartographyObjects
 			set
 			{
 				Debug.Log("[Polygon][RemplissageString]set");
-				_remplissage = value;
+				_remplissage = value; 
+				OnPropertyChanged();
 			}
 			get
 			{
@@ -74,6 +79,7 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[Polygon][ContourColor]set");
 				_contour = value.ToString();
+				OnPropertyChanged();
 			}
 			get
 			{
@@ -87,6 +93,7 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[Polygon][ContourString]set");
 				_contour = value;
+				OnPropertyChanged();
 			}
 			get
 			{
@@ -100,7 +107,10 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[Polygon][Opacite]set");
 				if (value > 0 && value < 1)
-					_opacite = value; 
+				{
+					_opacite = value;
+					OnPropertyChanged();
+				}
 			}
 			get
 			{
@@ -129,6 +139,7 @@ namespace MyCartographyObjects
 			}
 		}
 
+		//Interfaces
 		public bool IsPointClose(Coordonnees coords, double precisionn)
 		{
 			Debug.Log("[Polygon][IsPointClose]");
@@ -172,7 +183,6 @@ namespace MyCartographyObjects
 			}
 			else { return false; }
 		}
-	
 
 		//Surchage Opérateurs
 		public override string ToString()

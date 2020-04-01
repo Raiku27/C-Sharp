@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -15,7 +16,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Color = System.Drawing.Color;
+using MyCartographyObjects;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
 
 namespace PersonalMapManager.window
 {
@@ -23,44 +26,115 @@ namespace PersonalMapManager.window
 	{
 		//Variables Membres
 		public event PropertyChangedEventHandler PropertyChanged;
-		public string _couleur;
-		public string _epaisseur;
+		public MyCartographyObjects.Polyline _polyline = null;
+		public MyCartographyObjects.Polyline _temp = null;
+		public MyCartographyObjects.Polyline _debut = null;
+		private bool hasAppliquerBeenClicked = false;
+		public string _couleur = "";
+		public string _epaisseur = "1";
 
 
+		//Constructeur
 		public PolylineWindow()
 		{
 			InitializeComponent();
-			ListBoxCoordonnees.Items.Add("Debut");
+			DataContext = this;
 
-			/*foreach(var colorValue in Enum.GetValues(typeof(KnownColor)))
-			{
-				Color color = Color.FromKnownColor((KnownColor)colorValue);
-
-			}*/
+			foreach (PropertyInfo property in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
+				if (property.PropertyType == typeof(System.Drawing.Color))
+					ComboBoxColors.Items.Add(property.Name);
+			//Ajouteur les couleurs dans la combobox
+			Couleur = "Black";
 		}
 
-		
+		//Propriétés
+		public MyCartographyObjects.Polyline Polyline
+		{
+			set
+			{
+				_polyline = value;
+				_debut = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _polyline;
+			}
+		}
+		public string Couleur
+		{
+			set
+			{
+				_couleur = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _couleur;
+			}
+		}
+		public string Epaisseur
+		{
+			set
+			{
+				_epaisseur = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _epaisseur;
+			}
+		}
+
+		private void ButtonRetirer_Click(object sender, RoutedEventArgs e)
+		{
+			ListBoxCoordonnees.Items.Add("Retirer");
+		}
+		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
+		{
+			ListBoxCoordonnees.Items.Add("Ajouter");
+		}
 
 		private void ButtunOk_Click(object sender, RoutedEventArgs e)
 		{
-			ListBoxCoordonnees.Items.Add("ok");
+			if(hasAppliquerBeenClicked)
+			{
+				_polyline = _temp;
+				Hide();
+			}
 		}
-
 		private void ButtonAppliquer_Click(object sender, RoutedEventArgs e)
 		{
-			ListBoxCoordonnees.Items.Add("Appliquer");
+			if(_temp == null)
+			{
+				_temp = new MyCartographyObjects.Polyline();
+			}
+			_temp.Color = (Color)ColorConverter.ConvertFromString(Couleur);
+			_temp.Epaisseur = int.Parse(Epaisseur);
+			_temp.Collection = new List<Coordonnees> { };
+			//Ajouter le contenu de la collection
+			hasAppliquerBeenClicked = true;
 		}
-
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
 		{
-			ListBoxCoordonnees.Items.Add("Annuler");
+			Polyline = null;
+			Hide();
+		}
+
+		
+		private void Window_Closing(object sender, CancelEventArgs e)
+		{
+			Polyline = null;
 		}
 
 		//Interfaces
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+			if (handler != null) 
+				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
+
+		
 	}
 }

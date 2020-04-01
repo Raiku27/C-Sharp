@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using MathUtils;
 
@@ -33,7 +35,8 @@ namespace MyCartographyObjects
 			set 
 			{
 				Debug.Log("[Polyline][Collection]set");
-				_collection = value; 
+				_collection = value;
+				OnPropertyChanged();
 			}
 			get 
 			{
@@ -47,6 +50,7 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[Polyline][Couleur]set");
 				_couleur = value;
+				OnPropertyChanged();
 			}
 			get
 			{
@@ -73,6 +77,7 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[Polyline][Epaisseur]set");
 				_epaisseur = value;
+				OnPropertyChanged();
 			}
 			get 
 			{
@@ -100,7 +105,6 @@ namespace MyCartographyObjects
 				coords.Draw();
 			}
 		}
-
 		public double longeur()
 		{
 			Debug.Log("[Polyline][longeur]");
@@ -115,7 +119,6 @@ namespace MyCartographyObjects
 			}
 			return somme;
 		}
-
 		public double surfaceBoundingBox()
 		{
 			double xMin = 0;

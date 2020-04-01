@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MyCartographyObjects
 {
@@ -33,6 +34,7 @@ namespace MyCartographyObjects
 			{
 				Debug.Log("[Coordonnees][Latitude]set");
 				_latitude = value;
+				OnPropertyChanged();
 			}
             get
 			{
@@ -45,7 +47,8 @@ namespace MyCartographyObjects
             set 
 			{
 				Debug.Log("[Coordonnees][Longitude]set");
-				_longitude = value; 
+				_longitude = value;
+				OnPropertyChanged();
 			}
             get
 			{

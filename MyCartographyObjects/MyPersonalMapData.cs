@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace MyCartographyObjects
 {
-	public class MyPersonalMapData
+	public class MyPersonalMapData : INotifyPropertyChanged
 	{
 		//Variables membres
 		private string _nom;
@@ -20,6 +20,8 @@ namespace MyCartographyObjects
 		private string _email;
 		private ObservableCollection<ICartoObj> _observableCollection;
 		private string path = "C:\\Users\\Vincent\\OneDrive - Enseignement de la Province de Liège\\Cours\\B2\\C#\\MyCartographyObjects\\data\\";
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		//Constructeurs
 		public MyPersonalMapData() : this("","","",new ObservableCollection<ICartoObj> { })
@@ -44,6 +46,7 @@ namespace MyCartographyObjects
 				if (value != null)
 				{
 					_nom = value;
+					OnPropertyChanged();
 				}
 			}
 			get 
@@ -60,6 +63,7 @@ namespace MyCartographyObjects
 				if (value != null)
 				{
 					_prenom = value;
+					OnPropertyChanged();
 				}
 			}
 			get
@@ -76,6 +80,7 @@ namespace MyCartographyObjects
 				if (value != null)
 				{
 					_email = value;
+					OnPropertyChanged();
 				}
 			}
 			get
@@ -179,6 +184,14 @@ namespace MyCartographyObjects
 					Console.WriteLine(polyg);
 				}
 			}
+		}
+
+		//Interfaces
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
 
 		//Surchage Opérateurs

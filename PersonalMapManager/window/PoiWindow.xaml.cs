@@ -22,9 +22,9 @@ namespace PersonalMapManager.window
 	public partial class PoiWindow : Window,INotifyPropertyChanged
 	{
 		//Variables Membres
-		public POI _poi;
-		private POI temp;
-		private POI debut;
+		public POI _poi = null;
+		private POI temp = null;
+		private POI debut = null;
 
 		public string _stringLatitude = "0,000";
 		public string _stringLongitude = "0,000";
@@ -118,6 +118,10 @@ namespace PersonalMapManager.window
 		{
 			Poi = null;
 			Hide();
+		}
+		private void POIWindow_Closing(object sender, CancelEventArgs e)
+		{
+			Poi = null;
 		}
 
 		//Interfaces
