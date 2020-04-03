@@ -32,22 +32,24 @@ namespace PersonalMapManager.window
 		private bool hasAppliquerBeenClicked = false;
 		private string _stringLatitude;
 		private string _stringLongitude;
-		public string _couleur = "";
-		public string _epaisseur = "1";
+		public string _couleur;
+		public string _epaisseur;
 
 		//Constructeur
 		public PolylineWindow()
 		{
 			InitializeComponent();
 			DataContext = this;
-			Latitude = "0,000";
-			Longitude = "0,000";
+			
 
 			foreach (PropertyInfo property in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
 				if (property.PropertyType == typeof(System.Drawing.Color))
 					ComboBoxColors.Items.Add(property.Name);
 			//Ajouteur les couleurs dans la combobox
+			Latitude = "0,000";
+			Longitude = "0,000";
 			Couleur = "Black";
+			Epaisseur = "1";
 		}
 
 		//Propriétés
