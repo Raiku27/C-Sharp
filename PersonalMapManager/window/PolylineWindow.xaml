@@ -29,7 +29,7 @@
 		<ComboBox x:Name="ComboBoxColors" SelectedItem="{Binding Couleur}" VerticalContentAlignment="Center" Margin="174,70,20,311" FontFamily="Unispace" FontSize="18" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
 		<TextBox Text="{Binding Epaisseur}" FontFamily="Unispace" FontSize="22" Margin="174,115,20,266" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
 
-		<Label Content="Coordonnees:" Margin="20,160,175,228" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Coordonnee:" Margin="20,160,175,228" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
 		<Label Content="Latitude:" Margin="40,198,175,188" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 		<Label Content="Longitude:" Margin="40,238,155,148" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>

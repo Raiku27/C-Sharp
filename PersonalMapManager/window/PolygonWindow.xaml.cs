@@ -23,5 +23,25 @@ namespace PersonalMapManager.window
 		{
 			InitializeComponent();
 		}
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ButtonAppliquer_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ButtunOk_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

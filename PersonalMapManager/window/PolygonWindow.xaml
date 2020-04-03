@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PersonalMapManager.window"
         mc:Ignorable="d"
-        Title="PolygonWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="PolygonWindow"
+		Height="450"
+		Width="350"
+		ResizeMode="NoResize"
+		Closing="Window_Closing"
+		WindowStartupLocation="CenterOwner"
+		>
+	<Grid>
+		<Border>
+			<Border.Background>
+				<LinearGradientBrush>
+					<GradientStop Color="#0935e6" Offset="0.0"/>
+					<GradientStop Color="#5c6bab" Offset="1"/>
+				</LinearGradientBrush>
+			</Border.Background>
+
+		</Border>
+
+		<Label Content="Polygon:" Margin="20,20,20,351" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="24" FontFamily="Unispace" Padding="0"/>
+		<Label Content="Remplissage" Margin="20,70,176,311" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" FontFamily="Unispace" Padding="0"/>
+		<Label Content="Contour" Margin="20,110,176,271" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" FontFamily="Unispace" Padding="0"/>
+		<Label Content="Opacité" Margin="20,150,176,231" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" FontFamily="Unispace" Padding="0"/>
+		<Label Content="Coordonnee:" Margin="20,190,161,191" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="22" FontFamily="Unispace" Padding="0"/>
+		<Label Content="Latitude:" Margin="30,228,206,163" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="18" FontFamily="Unispace" Padding="0"/>
+		<Label Content="Latitude:" Margin="30,258,206,133" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="18" FontFamily="Unispace" Padding="0"/>
+
+		<ComboBox x:Name="ComboBoxRemplissage" Height="30" Margin="173,70,20,311" FontFamily="Unispace" FontSize="16"/>
+		<ComboBox x:Name="ComboBoxContour" Height="30" Margin="173,110,20,271" FontFamily="Unispace" FontSize="16"/>
+		<TextBox x:Name="TextBoxOpacité" Text="0.5" Height="30" Margin="253,150,20,231" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="16"/>
+		<Slider x:Name="SliderOpacité" Margin="173,155,96,236" VerticalAlignment="Center"/>
+		<TextBox x:Name="TextBoxLatitude" Text="0.000" Margin="138,0,132,163" FontFamily="Unispace" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Bottom" Height="25"/>
+		<TextBox x:Name="TextBoxLongitude" Text="0.000" Margin="138,0,132,130" FontFamily="Unispace" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Bottom" Height="25"/>
+
+		<Button x:Name="ButtonAjouter" Content="Ajouter" Margin="222,0,10,163" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="14" Background="Green" Foreground="Black" Height="25" VerticalAlignment="Bottom"/>
+		<Button x:Name="ButtonRetirer" Content="Retirer" Margin="222,0,10,130" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="14" Background="Red" Foreground="Black" Height="25" VerticalAlignment="Bottom"/>
+
+		<ListBox Margin="20,288,20,60"/>
+		
+		<Button x:Name="ButtonAnnuler" Click="ButtonAnnuler_Click" Content="Annuler" Margin="20,0,20,20" Width="70" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="Red" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+		<Button x:Name="ButtonAppliquer" Click="ButtonAppliquer_Click" Content="Appliquer" Margin="20,0,20,20" Width="90" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="Green" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+		<Button x:Name="ButtunOk" Click="ButtunOk_Click" Content="Ok" Margin="20,0,20,20" Width="70" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+
+
+
+	</Grid>
 </Window>
