@@ -112,6 +112,7 @@ namespace PersonalMapManager.window
 			}
 		}
 
+		//Méthodes
 		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
 		{
 			double outLatitude;
@@ -133,8 +134,6 @@ namespace PersonalMapManager.window
 				ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
 			}
 		}
-
-
 		private void ButtunOk_Click(object sender, RoutedEventArgs e)
 		{
 			if(hasAppliquerBeenClicked)
@@ -151,8 +150,6 @@ namespace PersonalMapManager.window
 			}
 			_temp.Color = (Color)ColorConverter.ConvertFromString(Couleur);
 			_temp.Epaisseur = int.Parse(Epaisseur);
-			_temp.Collection = new List<Coordonnees> { };
-			//Ajouter le contenu de la collection
 			hasAppliquerBeenClicked = true;
 		}
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
@@ -160,8 +157,6 @@ namespace PersonalMapManager.window
 			Polyline = null;
 			Hide();
 		}
-
-		
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
 			Polyline = null;
@@ -174,7 +169,5 @@ namespace PersonalMapManager.window
 			if (handler != null) 
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
-
-		
 	}
 }

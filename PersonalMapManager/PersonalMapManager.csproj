@@ -70,6 +70,9 @@
     <Compile Include="window\PoiWindow.xaml.cs">
       <DependentUpon>PoiWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="window\PolygonWindow.xaml.cs">
+      <DependentUpon>PolygonWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="window\PolylineWindow.xaml.cs">
       <DependentUpon>PolylineWindow.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="window\PoiWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\PolygonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -170,7 +170,7 @@ namespace Projet_Test
 				if(i is Polyline)
 				{
 					Polyline p = i as Polyline;
-					Console.WriteLine("Polyline : {0}",p.Collection.Count);
+					Console.WriteLine(p);
 
 					foreach (Coordonnees c in p.Collection)
 					{
