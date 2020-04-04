@@ -20,7 +20,6 @@
 					<GradientStop Color="#5c6bab" Offset="1"/>
 				</LinearGradientBrush>
 			</Border.Background>
-
 		</Border>
 
 		<Label Content="Polygon:" Margin="20,20,20,351" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="24" FontFamily="Unispace" Padding="0"/>
@@ -35,11 +34,11 @@
 		<ComboBox x:Name="ComboBoxContour" SelectedItem="{Binding Contour}" Height="30" Margin="173,110,20,271" FontFamily="Unispace" FontSize="16" VerticalContentAlignment="Center"/>
 		<TextBox x:Name="TextBoxOpacité" Text="{Binding StringOpacite}" Height="30" Margin="253,150,20,231" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="16"/>
 		<Slider x:Name="SliderOpacité" Value="{Binding Opacite}" Minimum="0" Maximum="1" Margin="173,155,96,236" VerticalAlignment="Center"/>
-		<TextBox x:Name="TextBoxLatitude" Text="0.000" Margin="138,0,132,163" FontFamily="Unispace" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Bottom" Height="25"/>
-		<TextBox x:Name="TextBoxLongitude" Text="0.000" Margin="138,0,132,130" FontFamily="Unispace" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Bottom" Height="25"/>
+		<TextBox x:Name="TextBoxLatitude" Text="{Binding Latitude}" Margin="138,0,132,163" FontFamily="Unispace" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Bottom" Height="25"/>
+		<TextBox x:Name="TextBoxLongitude" Text="{Binding Longitude}" Margin="138,0,132,130" FontFamily="Unispace" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Bottom" Height="25"/>
 
-		<Button x:Name="ButtonAjouter" Content="Ajouter" Margin="222,0,10,163" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="14" Background="Green" Foreground="Black" Height="25" VerticalAlignment="Bottom"/>
-		<Button x:Name="ButtonRetirer" Content="Retirer" Margin="222,0,10,130" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="14" Background="Red" Foreground="Black" Height="25" VerticalAlignment="Bottom"/>
+		<Button x:Name="ButtonAjouter" Click="ButtonAjouter_Click" Content="Ajouter" Margin="222,0,10,163" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="14" Background="Green" Foreground="Black" Height="25" VerticalAlignment="Bottom"/>
+		<Button x:Name="ButtonRetirer" Click="ButtonRetirer_Click" Content="Retirer" Margin="222,0,10,130" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Unispace" FontSize="14" Background="Red" Foreground="Black" Height="25" VerticalAlignment="Bottom"/>
 
 		<ListBox x:Name="ListBoxCoordonnees" Margin="20,288,20,60"/>
 		

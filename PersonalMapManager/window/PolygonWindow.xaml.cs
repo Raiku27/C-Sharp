@@ -15,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MyCartographyObjects;
+using Polygon = MyCartographyObjects.Polygon;
 
 namespace PersonalMapManager.window
 {
@@ -22,7 +24,7 @@ namespace PersonalMapManager.window
 	{
 		//Variables Membres
 		public Polygon _polygon;
-		private Polygon _temp = new Polygon();
+		public Polygon _temp = new Polygon();
 		private double _opacite;
 		private string _stringOpacite;
 		private string _remplissage;
@@ -48,6 +50,8 @@ namespace PersonalMapManager.window
 			Remplissage = "Blue";
 			Contour = "Black";
 			StringOpacite = "1";
+			Latitude = "0,000";
+			Longitude = "0,000";
 		}
 
 		//Propriétés
@@ -143,21 +147,54 @@ namespace PersonalMapManager.window
 			}
 		}
 		//Méthodes
-		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-		private void ButtonAppliquer_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-		private void ButtunOk_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 
+		}
+		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
+		{
+			double outLatitude;
+			double outLongitude;
+			double.TryParse(Latitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLatitude);
+			double.TryParse(Longitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLongitude);
+			_temp.Collection.Add(new Coordonnees(outLatitude, outLongitude));
+			ListBoxCoordonnees.Items.Add(new Coordonnees(outLatitude, outLongitude).ToString());
+			ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
+		}
+		private void ButtonRetirer_Click(object sender, RoutedEventArgs e)
+		{
+			if (ListBoxCoordonnees.Items.Count != 0)
+			{
+				int numeroIndex = ListBoxCoordonnees.SelectedIndex;
+				Coordonnees coords = _temp.Collection[numeroIndex];
+				_temp.Collection.Remove(coords);
+				ListBoxCoordonnees.Items.RemoveAt(numeroIndex);
+				ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
+			}
+		}
+		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
+		{
+			Polygon = null;
+			Hide();
+		}
+		private void ButtonAppliquer_Click(object sender, RoutedEventArgs e)
+		{
+			if (_temp == null)
+			{
+				_temp = new MyCartographyObjects.Polygon();
+			}
+			_temp.ContourColor = (Color)ColorConverter.ConvertFromString(Contour);
+			_temp.RemplissageColor = (Color)ColorConverter.ConvertFromString(Remplissage);
+			_temp.Opacite = Opacite;
+			hasAppliquerBeenClicked = true;
+		}
+		private void ButtunOk_Click(object sender, RoutedEventArgs e)
+		{
+			if (hasAppliquerBeenClicked)
+			{
+				_polygon = _temp;
+				Hide();
+			}
 		}
 		//Interfaces
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -166,5 +203,7 @@ namespace PersonalMapManager.window
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
+
+		
 	}
 }

@@ -108,6 +108,13 @@ namespace PersonalMapManager
 			else if (ComboBoxChoixObjet.SelectedIndex == 3)
 			{
 				//Surface
+				PolygonWindow polygonWindow = new PolygonWindow();
+				polygonWindow.Owner = this;
+				polygonWindow.ShowDialog();
+				if(polygonWindow.Polygon != null)
+				{
+					myPersonalMapData.ObservableCollection.Add(polygonWindow.Polygon);
+				}
 			}
 		}
 		private void Modifier_Click(object sender, RoutedEventArgs e)

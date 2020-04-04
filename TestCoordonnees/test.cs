@@ -167,9 +167,16 @@ namespace Projet_Test
 			Console.WriteLine(mapdata);
 			foreach(ICartoObj i in mapdata.ObservableCollection)
 			{
-				if(i is Polyline)
+				if (i is POI)
+				{
+					POI p = i as POI;
+					Console.Write("POI: ");
+					Console.WriteLine(p);
+				}
+				if (i is Polyline)
 				{
 					Polyline p = i as Polyline;
+					Console.Write("POLYLINE: ");
 					Console.WriteLine(p);
 
 					foreach (Coordonnees c in p.Collection)
@@ -178,14 +185,19 @@ namespace Projet_Test
 						Console.WriteLine(c);
 					}
 				}
-				if(i is POI)
+				if(i is Polygon)
 				{
-					POI p = i as POI;
-
+					Polygon p = i as Polygon;
+					Console.Write("POLYGON: ");
 					Console.WriteLine(p);
+					foreach(Coordonnees c in p.Collection)
+					{
+						Console.Write("\t\t-");
+						Console.WriteLine(c);
+					}
 				}
-				//Console.WriteLine(i);
 			}
+
 
 			Console.ReadLine();
 		}
