@@ -15,15 +15,17 @@ namespace MyCartographyObjects
 		private string _remplissage;
 		private string _contour;
 		private double _opacite;
+		private string _description;
 
 		//Constructeurs
-		public Polygon() : this(new List<Coordonnees> { },Colors.Black,Colors.Black,1)
+		public Polygon() : this("",new List<Coordonnees> { },Colors.Black,Colors.Black,1)
 		{
 			Debug.Log("[Polygon][Constructeur]");
 		}
-		public Polygon(List<Coordonnees> newCollection,Color newRemplissage,Color newContour,double newOpacite) : base()
+		public Polygon(string newDescription,List<Coordonnees> newCollection,Color newRemplissage,Color newContour,double newOpacite) : base()
 		{
 			Debug.Log("[Polygon][Constructeur]newCollection,newRemplissage,newCountour,newOpacite");
+			Description = newDescription;
 			Collection = newCollection;
 			RemplissageColor = newRemplissage;
 			ContourColor = newContour;
@@ -31,6 +33,20 @@ namespace MyCartographyObjects
 		}
 
 		//Propriétés
+		public string Description
+		{
+			set
+			{
+				Debug.Log("[POI][Desciption]set");
+				_description = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				Debug.Log("[POI][Desciption]get");
+				return _description;
+			}
+		}
 		public List<Coordonnees> Collection
 		{
 			set 
@@ -188,7 +204,7 @@ namespace MyCartographyObjects
 		public override string ToString()
 		{
 			Debug.Log("[Polygon][ToString]");
-			return string.Format("ID: {0}", Id) + " Remplissage: " + RemplissageColor + " Contour: " + ContourColor + string.Format(" Opacité: {0,3:0.0}",Opacite);
+			return string.Format("ID: {0}", Id) + " Description: " + Description +  " Remplissage: " + RemplissageColor + " Contour: " + ContourColor + string.Format(" Opacité: {0,3:0.0}",Opacite);
 		}
 	}
 }

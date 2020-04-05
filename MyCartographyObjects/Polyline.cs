@@ -16,20 +16,36 @@ namespace MyCartographyObjects
 		public List<Coordonnees> _collection;
 		private string _couleur;
 		private int _epaisseur;
+		private string _description;
 
 		//Constructeurs
-		public Polyline() : this(new List<Coordonnees> { },Colors.Black,1)
+		public Polyline() : this("",new List<Coordonnees> { },Colors.Black,1)
 		{
 			Debug.Log("[Polyline][Constructeur]");
 		}
-		public Polyline(List<Coordonnees> newCollection,Color newCouleur,int newEpaisseur) : base()
+		public Polyline(string newDescription, List<Coordonnees> newCollection,Color newCouleur,int newEpaisseur) : base()
 		{
 			Debug.Log("[Polyline][Constructeur]newCollection,newCouleur,newEpaisseur");
+			Description = newDescription;
 			Collection = newCollection;
 			Couleur = newCouleur.ToString();
 			Epaisseur = newEpaisseur;
 		}
 		//Propriétés
+		public string Description
+		{
+			set
+			{
+				Debug.Log("[POI][Desciption]set");
+				_description = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				Debug.Log("[POI][Desciption]get");
+				return _description;
+			}
+		}
 		public List<Coordonnees> Collection
 		{
 			set 
@@ -180,7 +196,7 @@ namespace MyCartographyObjects
 		public override string ToString()
 		{
 			Debug.Log("[Polyline][ToString]");
-			return string.Format("Id: {0}", Id) + " Couleur: " + Couleur + string.Format(" Epaisseur: {0}", Epaisseur);
+			return string.Format("Id: {0}", Id) + " Description: " + Description +  " Couleur: " + Couleur + string.Format(" Epaisseur: {0}", Epaisseur);
 		}
 	}
 }

@@ -16,12 +16,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Polygon = MyCartographyObjects.Polygon;
+using Polyline = MyCartographyObjects.Polyline;
 
 namespace PersonalMapManager
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
 	public partial class MainWindow : Window
 	{
 		//Variables Membres
@@ -31,7 +30,27 @@ namespace PersonalMapManager
 		public MainWindow()
 		{
 			InitializeComponent();
+			DataContext = this;
 			myPersonalMapData.Load("Vincent","Gerard");
+			//Charger la ListBox
+			foreach (ICartoObj i in myPersonalMapData.ObservableCollection)
+			{
+				if (i is POI)
+				{
+					POI p = i as POI;
+					ListBox.Items.Add("POI: " + p.Description);
+				}
+				if (i is Polyline)
+				{
+					Polyline p = i as Polyline;
+					ListBox.Items.Add("Trajet: " + p.Description);
+				}
+				if (i is Polygon)
+				{
+					Polygon p = i as Polygon;
+					ListBox.Items.Add("Surface: " + p.Description);
+				}
+			}
 		}
 
 		//Méthodes
@@ -41,10 +60,32 @@ namespace PersonalMapManager
 		}
 		private void Open_Click(object sender, RoutedEventArgs e)
 		{
+			//Vider la ListBox
+			ListBox.Items.Clear();
+
 			if (myPersonalMapData.Load(myPersonalMapData.Prenom, myPersonalMapData.Nom))
 			{
 				MessageBox.Show("Erreur: myPersonalMapData.Load(prenom,nom)");
 				this.Close();
+			}
+			//Charger la ListBox
+			foreach(ICartoObj i in myPersonalMapData.ObservableCollection)
+			{
+				if(i is POI)
+				{
+					POI p = i as POI;
+					ListBox.Items.Add("POI: " + p.Description);
+				}
+				if(i is Polyline)
+				{
+					Polyline p = i as Polyline;
+					ListBox.Items.Add("Trajet: " + p.Description);
+				}
+				if(i is Polygon)
+				{
+					Polygon p = i as Polygon;
+					ListBox.Items.Add("Surface: " + p.Description);
+				}
 			}
 		}
 		private void Save_Click(object sender, RoutedEventArgs e)
@@ -92,6 +133,7 @@ namespace PersonalMapManager
 				if(poiWindow.Poi != null)
 				{
 					myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
+					ListBox.Items.Add("POI: " + poiWindow.Poi.Description);
 				}
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 2)
@@ -103,6 +145,7 @@ namespace PersonalMapManager
 				if(polylineWindow.Polyline != null)
 				{
 					myPersonalMapData.ObservableCollection.Add(polylineWindow.Polyline);
+					ListBox.Items.Add("Trajet: " + polylineWindow.Polyline.Description);
 				}
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 3)
@@ -114,6 +157,7 @@ namespace PersonalMapManager
 				if(polygonWindow.Polygon != null)
 				{
 					myPersonalMapData.ObservableCollection.Add(polygonWindow.Polygon);
+					ListBox.Items.Add("Surface: " + polygonWindow.Polygon.Description);
 				}
 			}
 		}
@@ -123,7 +167,21 @@ namespace PersonalMapManager
 		}
 		private void Supprimer_Click(object sender, RoutedEventArgs e)
 		{
-
+			if(ListBox.Items.Count != 0)
+			{
+				int position = ListBox.SelectedIndex;
+				ICartoObj temp = myPersonalMapData.ObservableCollection.ElementAt(position);
+				if(temp == null)
+				{
+					return;
+				}
+				else
+				{
+					myPersonalMapData.ObservableCollection.RemoveAt(position);
+					ListBox.Items.RemoveAt(position);
+					ListBox.SelectedIndex = ListBox.Items.Count - 1;
+				}
+			}
 		}
-	}
+    }
 }

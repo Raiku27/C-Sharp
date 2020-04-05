@@ -19,9 +19,6 @@ using System.Runtime.CompilerServices;
 
 namespace PersonalMapManager
 {
-	/// <summary>
-	/// Interaction logic for Login.xaml
-	/// </summary>
 	public partial class LoginWindow : Window, INotifyPropertyChanged
 	{
 		//Variables Memebres

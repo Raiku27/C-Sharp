@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:PersonalMapManager.window"
         mc:Ignorable="d"
         Title="Polyline"
-		Height="450"
+		Height="500"
 		Width="500"
 		ResizeMode="NoResize"
 		Closing="Window_Closing"
 		WindowStartupLocation="CenterScreen"
 		>
-    <Grid Height="421" VerticalAlignment="Bottom">
+    <Grid Height="471" VerticalAlignment="Bottom">
 		<Border>
 			<Border.Background>
 				<LinearGradientBrush>
@@ -22,27 +22,28 @@
 			</Border.Background>
 		</Border>
 
-		<Label Content="Polyline:" Margin="20,20,20,351" FontFamily="Unispace" FontSize="24" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Couleur:" Margin="20,70,192,311" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Epaisseur:" Margin="20,115,175,266" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Polyline:" Margin="20,20,20,401" FontFamily="Unispace" FontSize="24" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Couleur:" Margin="20,70,192,361" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Epaisseur:" Margin="20,115,175,316" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Description:" Margin="20,160,175,271" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<ComboBox x:Name="ComboBoxColors" SelectedItem="{Binding Couleur}" VerticalContentAlignment="Center" Margin="174,70,20,311" FontFamily="Unispace" FontSize="18" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
-		<TextBox Text="{Binding Epaisseur}" FontFamily="Unispace" FontSize="22" Margin="174,115,20,266" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+		<ComboBox x:Name="ComboBoxColors" SelectedItem="{Binding Couleur}" VerticalContentAlignment="Center" Margin="192,70,20,361" FontFamily="Unispace" FontSize="18" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+		<TextBox Text="{Binding Epaisseur}" FontFamily="Unispace" FontSize="22" Margin="192,115,20,316" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+		<TextBox Text="{Binding Description}" FontFamily="Unispace" FontSize="22" Margin="192,160,20,271" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
 
-		<Label Content="Coordonnee:" Margin="20,160,175,228" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Coordonnee:" Margin="20,210,175,228" FontFamily="Unispace" FontSize="22" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<Label Content="Latitude:" Margin="40,198,175,188" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-		<Label Content="Longitude:" Margin="40,238,155,148" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Latitude:" Margin="40,248,175,188" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+		<Label Content="Longitude:" Margin="40,288,155,148" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
-		<TextBox Text="{Binding Latitude}" FontFamily="Unispace" FontSize="18" Margin="174,198,175,188" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
-		<TextBox Text="{Binding Longitude}" FontFamily="Unispace" FontSize="18" Margin="174,237,175,149" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+		<TextBox Text="{Binding Latitude}" FontFamily="Unispace" FontSize="18" Margin="174,248,175,188" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
+		<TextBox Text="{Binding Longitude}" FontFamily="Unispace" FontSize="18" Margin="174,287,175,149" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="Gray" BorderBrush="White" BorderThickness="1"/>
 
-		<Button x:Name="ButtonAjouter" Click="ButtonAjouter_Click" Margin="344,198,20,188" Content="Ajouter" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Green"/>
-		<Button x:Name="ButtonRetirer" Click="ButtonRetirer_Click" Margin="344,237,20,149" Content="Retirer" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Red"/>
+		<Button x:Name="ButtonAjouter" Click="ButtonAjouter_Click" Margin="344,248,20,188" Content="Ajouter" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Green"/>
+		<Button x:Name="ButtonRetirer" Click="ButtonRetirer_Click" Margin="344,287,20,149" Content="Retirer" FontFamily="Unispace" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Red"/>
 
-		<ListBox x:Name="ListBoxCoordonnees" Margin="20,284,20,62">
-			<!-- A finir-->
-		</ListBox>
+		<ListBox x:Name="ListBoxCoordonnees" Margin="20,334,20,62"/>
+
 
 		<Button x:Name="ButtonAnnuler" Click="ButtonAnnuler_Click" Content="Annuler" Margin="20,0,20,20" Width="70" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="Red" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 		<Button x:Name="ButtonAppliquer" Click="ButtonAppliquer_Click" Content="Appliquer" Margin="20,0,20,20" Width="90" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="Green" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>

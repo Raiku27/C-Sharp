@@ -34,6 +34,7 @@ namespace PersonalMapManager.window
 		private string _stringLongitude;
 		public string _couleur;
 		public string _epaisseur;
+		public string _description;
 
 		//Constructeur
 		public PolylineWindow()
@@ -50,6 +51,7 @@ namespace PersonalMapManager.window
 			Longitude = "0,000";
 			Couleur = "Black";
 			Epaisseur = "1";
+			Description = "";
 		}
 
 		//Propriétés
@@ -87,6 +89,18 @@ namespace PersonalMapManager.window
 			get
 			{
 				return _epaisseur;
+			}
+		}
+		public string Description
+		{
+			set
+			{
+				_description = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _description;
 			}
 		}
 		public string Latitude
@@ -152,6 +166,7 @@ namespace PersonalMapManager.window
 			}
 			_temp.Color = (Color)ColorConverter.ConvertFromString(Couleur);
 			_temp.Epaisseur = int.Parse(Epaisseur);
+			_temp.Description = Description;
 			hasAppliquerBeenClicked = true;
 		}
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)

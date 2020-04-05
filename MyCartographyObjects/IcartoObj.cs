@@ -8,5 +8,6 @@ namespace MyCartographyObjects
 {
 	public interface ICartoObj
 	{
+
 	}
 }

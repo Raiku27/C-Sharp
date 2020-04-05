@@ -24,5 +24,10 @@ namespace TestWindow
 		{
 			InitializeComponent();
 		}
+
+		private void lvICartoObj_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
+		}
 	}
 }

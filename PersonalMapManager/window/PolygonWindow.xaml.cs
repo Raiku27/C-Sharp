@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,6 +32,7 @@ namespace PersonalMapManager.window
 		private string _contour;
 		private string _latitude;
 		private string _longitude;
+		private string _description;
 		private bool hasAppliquerBeenClicked = false;
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -52,6 +54,7 @@ namespace PersonalMapManager.window
 			StringOpacite = "1";
 			Latitude = "0,000";
 			Longitude = "0,000";
+			Description = "";
 		}
 
 		//Propriétés
@@ -77,6 +80,18 @@ namespace PersonalMapManager.window
 			get
 			{
 				return _remplissage;
+			}
+		}
+		public string Description
+		{
+			set
+			{
+				_description = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _description;
 			}
 		}
 		public string Contour
@@ -186,6 +201,7 @@ namespace PersonalMapManager.window
 			_temp.ContourColor = (Color)ColorConverter.ConvertFromString(Contour);
 			_temp.RemplissageColor = (Color)ColorConverter.ConvertFromString(Remplissage);
 			_temp.Opacite = Opacite;
+			_temp.Description = Description;
 			hasAppliquerBeenClicked = true;
 		}
 		private void ButtunOk_Click(object sender, RoutedEventArgs e)

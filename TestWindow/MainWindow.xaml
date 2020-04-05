@@ -6,24 +6,59 @@
         xmlns:local="clr-namespace:TestWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="50*"/>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="50*" />
-		</Grid.RowDefinitions>
-	
-		<StackPanel Grid.Row="0"  Background="Tan"/>
-			<GridSplitter Grid.Row="1"
-					  HorizontalAlignment="Stretch"
-					  VerticalAlignment="Center"
-					  Background="Black" 
-					  ShowsPreview="True"
-					  Height="5"
-				 />
-		<StackPanel Grid.Row="2"  Background="Brown"/>
-	</Grid>
-	
-		
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_New" />
+				<MenuItem Header="toyo" />
+				<MenuItem Header="_Save" />
+				<Separator />
+				<MenuItem Header="_Exit" />
+			</MenuItem>
+		</Menu>
+
+		<ToolBarTray DockPanel.Dock="Top">
+			<ToolBar>
+				<RadioButton Name="rbSelection" GroupName="gMode" IsChecked="True" Content="Selection" />
+				<ComboBox Name="cbType" SelectedValuePath="Content" Width="60">
+					<ComboBoxItem IsSelected="True">POI</ComboBoxItem>
+					<ComboBoxItem>Polyline</ComboBoxItem>
+				</ComboBox>
+				<RadioButton Name="rbAjout" GroupName="gMode" Content="Ajout" />
+				<RadioButton Name="rbSuppression" GroupName="gMode" Content="Suppression" />
+				<TextBox Name="tbToolBar" Width="200"></TextBox>
+			</ToolBar>
+			<ToolBar Name="tbTest">
+				<Button Command="Cut" Content="Cut" />
+				<Button Command="Copy" Content="Copy" />
+				<Button Command="Paste" Content="Paste" />
+			</ToolBar>
+		</ToolBarTray>
+
+		<StatusBar DockPanel.Dock="Bottom">
+			<StatusBarItem>
+				<TextBlock Name="lbStatusBar" />
+			</StatusBarItem>
+		</StatusBar>
+
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="5" />
+				<ColumnDefinition Width="3*" />
+			</Grid.ColumnDefinitions>
+
+			<ListView BorderBrush="Aqua" BorderThickness="5" Grid.Column="0" x:Name="lvICartoObj" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Path=ListICartoObj}" SelectionChanged="lvICartoObj_SelectionChanged">
+
+			</ListView>
+
+			<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+			<!--<m:Map Grid.Column="2" x:Name="myMap" CredentialsProvider="Ah0_P8kL4Pq7OOYiqs2EO4b9ZC4ynua92LcUOsps3BEhHIbmJIjCDn0gUM1nMzca" Center="50.610597,5.509206" ZoomLevel="16" MouseDown="MyMap_MouseDown"/>--> 	
+		</Grid>
+
+	</DockPanel>
+
+
 
 </Window>
