@@ -33,3 +33,5 @@ C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\My
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\LoginWindow.baml
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PolygonWindow.g.cs
 C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\obj\Debug\window\PolygonWindow.baml
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+C:\Users\Vincent\OneDrive - Enseignement de la Province de Liège\Cours\B2\C#\MyCartographyObjects\PersonalMapManager\bin\Debug\Microsoft.Maps.MapControl.WPF.xml

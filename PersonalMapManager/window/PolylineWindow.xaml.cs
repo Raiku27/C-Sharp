@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using MyCartographyObjects;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
+using Polyline = MyCartographyObjects.Polyline;
 
 namespace PersonalMapManager.window
 {
@@ -27,14 +28,15 @@ namespace PersonalMapManager.window
 	{
 		//Variables Membres
 		public event PropertyChangedEventHandler PropertyChanged;
-		public MyCartographyObjects.Polyline _polyline;
-		private MyCartographyObjects.Polyline _temp = new MyCartographyObjects.Polyline();
+		private Polyline _polyline;
+		private Polyline _temp = new Polyline();
 		private bool hasAppliquerBeenClicked = false;
 		private string _stringLatitude;
 		private string _stringLongitude;
 		public string _couleur;
 		public string _epaisseur;
 		public string _description;
+		private bool modifier = false;
 
 		//Constructeur
 		public PolylineWindow()
@@ -52,6 +54,27 @@ namespace PersonalMapManager.window
 			Couleur = "Black";
 			Epaisseur = "1";
 			Description = "";
+		}
+
+		public PolylineWindow(Polyline newPolyline)
+		{
+			InitializeComponent();
+			DataContext = this;
+			foreach (PropertyInfo property in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
+				if (property.PropertyType == typeof(System.Drawing.Color))
+					ComboBoxColors.Items.Add(property.Name);
+			//Ajouteur les couleurs dans la combobox
+			_temp = newPolyline;
+			Latitude = "0,000";
+			Longitude = "0,000";
+			Couleur = MainWindow.GetColorName(newPolyline.Color);
+			Epaisseur = newPolyline.Epaisseur.ToString();
+			Description = newPolyline.Description;
+			foreach (Coordonnees c in newPolyline.Collection)
+			{
+				ListBoxCoordonnees.Items.Add(c.ToString());
+			}
+			modifier = true;
 		}
 
 		//Propriétés
@@ -171,8 +194,15 @@ namespace PersonalMapManager.window
 		}
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
 		{
-			Polyline = null;
-			Hide();
+			if(modifier)
+			{
+				Hide();
+			}
+			else
+			{
+				Polyline = null;
+				Hide();
+			}
 		}
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{

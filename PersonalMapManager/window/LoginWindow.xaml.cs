@@ -16,6 +16,7 @@ using System.ComponentModel;
 using MyCartographyObjects;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.TextFormatting;
 
 namespace PersonalMapManager
 {
@@ -80,12 +81,8 @@ namespace PersonalMapManager
 				TextBoxInfo.Text = "Ce compte n'existe pas!";
 				return;
 			}
-			MainWindow mainWindow = new MainWindow();
-			this.Hide();
-			mainWindow.myPersonalMapData.Nom = Nom;
-			mainWindow.myPersonalMapData.Prenom = Prenom;
-			mainWindow.Show();
-			this.Close();
+			((MainWindow)Owner).myPersonalMapData = temp;
+			Close();
 		}
 
 		private void CréeUnCompte_Click(object sender, RoutedEventArgs e)
@@ -95,16 +92,9 @@ namespace PersonalMapManager
 				TextBoxInfo.Text = "Un champs est vide!";
 				return;
 			}
-
 			MyPersonalMapData temp = new MyPersonalMapData(Nom, Prenom, Email, new ObservableCollection<ICartoObj> { });
-			temp.Save();
-			MainWindow mainWindow = new MainWindow();
-			this.Hide();
-			mainWindow.myPersonalMapData.Nom = Nom;
-			mainWindow.myPersonalMapData.Prenom = Prenom;
-			mainWindow.myPersonalMapData.Email = Email;
-			mainWindow.Show();
-			this.Close();
+			((MainWindow)Owner).myPersonalMapData = temp;
+			Close();
 		}
 
 		private void LoginWindow_Closing(object sender, CancelEventArgs e)

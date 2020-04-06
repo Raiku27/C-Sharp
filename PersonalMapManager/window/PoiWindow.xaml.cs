@@ -31,12 +31,25 @@ namespace PersonalMapManager.window
 		public string _description = "";
 		private bool hasAppliquerBeenClicked = false;
 		public event PropertyChangedEventHandler PropertyChanged;
+		bool modifier = false;
 
 		//Constructeur
 		public PoiWindow()
 		{
 			InitializeComponent();
 			DataContext = this;
+		}
+		public PoiWindow(POI newPoi)
+		{
+			InitializeComponent();
+			DataContext = this;
+			temp = newPoi;
+			Poi = newPoi;
+			Latitude = newPoi.Latitude.ToString();
+			Longitude = newPoi.Longitude.ToString();
+			Description = newPoi.Description;
+			hasAppliquerBeenClicked = true;
+			modifier = true;
 		}
 
 		//Propriétés
@@ -116,12 +129,22 @@ namespace PersonalMapManager.window
 		}
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
 		{
-			Poi = null;
-			Hide();
+			if(modifier)
+			{
+				Hide();
+			}
+			else
+			{
+				Poi = null;
+				Hide();
+			}
 		}
 		private void POIWindow_Closing(object sender, CancelEventArgs e)
 		{
-			Poi = null;
+			if(!modifier)
+			{
+				Poi = null;
+			}
 		}
 
 		//Interfaces

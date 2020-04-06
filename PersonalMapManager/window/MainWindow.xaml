@@ -4,6 +4,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:PersonalMapManager"
+		xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
 		mc:Ignorable="d"
 		Title="PersonalMapManager"
 		MinHeight="540"
@@ -104,7 +105,7 @@
 		<GridSplitter Grid.Row="2" Grid.Column="1" Width="5" Background="Black" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
 		<ListBox x:Name="ListBox" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
 
-		<TextBox Grid.Row="2" Grid.Column="2" Text="Carte BING" FontFamily="Unispace" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+		<m:Map x:Name="Map" Grid.Column="2" Grid.Row="2" ZoomLevel="16" CredentialsProvider="AnZMlBjpnJpG5vB8rNtkO6LqVURsdM8AOwxZKImUP_Oqte2VkoIeY526xINnZhiV"/>
 
 	</Grid>
 </Window>

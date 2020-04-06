@@ -10,7 +10,7 @@
 		Width="350"
 		ResizeMode="NoResize"
 		Closing="Window_Closing"
-		WindowStartupLocation="CenterOwner"
+		WindowStartupLocation="CenterScreen"
 		>
 	<Grid>
 		<Border>

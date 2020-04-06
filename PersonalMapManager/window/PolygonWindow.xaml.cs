@@ -35,6 +35,7 @@ namespace PersonalMapManager.window
 		private string _description;
 		private bool hasAppliquerBeenClicked = false;
 		public event PropertyChangedEventHandler PropertyChanged;
+		private bool modifier = false;
 
 		//Constructeur
 		public PolygonWindow()
@@ -56,6 +57,34 @@ namespace PersonalMapManager.window
 			Longitude = "0,000";
 			Description = "";
 		}
+
+		public PolygonWindow(Polygon newPolygon)
+		{
+			InitializeComponent();
+			DataContext = this;
+			foreach (PropertyInfo property in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
+			{
+				if (property.PropertyType == typeof(System.Drawing.Color))
+				{
+					ComboBoxContour.Items.Add(property.Name);
+					ComboBoxRemplissage.Items.Add(property.Name);
+				}
+			}
+			_temp = newPolygon;
+			Remplissage = MainWindow.GetColorName(newPolygon.RemplissageColor);
+			Contour = MainWindow.GetColorName(newPolygon.ContourColor);
+			StringOpacite = newPolygon.Opacite.ToString();
+			Latitude = "0,000";
+			Longitude = "0,000";
+			Description = newPolygon.Description;
+			foreach (Coordonnees c in newPolygon.Collection)
+			{
+				ListBoxCoordonnees.Items.Add(c.ToString());
+			}
+			hasAppliquerBeenClicked = true;
+			modifier = true;
+		}
+
 
 		//Propriétés
 		public Polygon Polygon
@@ -164,7 +193,10 @@ namespace PersonalMapManager.window
 		//Méthodes
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-
+			if (!modifier)
+			{
+				_polygon = null;
+			}
 		}
 		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
 		{
@@ -189,8 +221,15 @@ namespace PersonalMapManager.window
 		}
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
 		{
-			Polygon = null;
-			Hide();
+			if(modifier)
+			{
+				Hide();
+			}
+			else
+			{
+				Polygon = null;
+				Hide();
+			}
 		}
 		private void ButtonAppliquer_Click(object sender, RoutedEventArgs e)
 		{
@@ -219,7 +258,5 @@ namespace PersonalMapManager.window
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
-
-		
 	}
 }

@@ -1,10 +1,12 @@
-﻿using MyCartographyObjects;
+﻿using Microsoft.Maps.MapControl.WPF;
+using MyCartographyObjects;
 using PersonalMapManager.window;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Media;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +16,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Polygon = MyCartographyObjects.Polygon;
@@ -24,31 +27,43 @@ namespace PersonalMapManager
 	public partial class MainWindow : Window
 	{
 		//Variables Membres
-		public MyPersonalMapData myPersonalMapData = new MyPersonalMapData();
+		public MyPersonalMapData myPersonalMapData;
 	
 		//Constructeurs
 		public MainWindow()
 		{
 			InitializeComponent();
 			DataContext = this;
-			myPersonalMapData.Load("Vincent","Gerard");
-			//Charger la ListBox
-			foreach (ICartoObj i in myPersonalMapData.ObservableCollection)
+			Map.Center = new Location(50.620090, 5.581406);
+			LoginWindow loginWindow = new LoginWindow();
+			Focusable = false;
+			this.Show();
+			loginWindow.Owner = this;
+			loginWindow.ShowDialog();
+			if (myPersonalMapData == null)
 			{
-				if (i is POI)
+				Close();
+			}
+			else
+			{
+				//Charger la ListBox
+				foreach (ICartoObj i in myPersonalMapData.ObservableCollection)
 				{
-					POI p = i as POI;
-					ListBox.Items.Add("POI: " + p.Description);
-				}
-				if (i is Polyline)
-				{
-					Polyline p = i as Polyline;
-					ListBox.Items.Add("Trajet: " + p.Description);
-				}
-				if (i is Polygon)
-				{
-					Polygon p = i as Polygon;
-					ListBox.Items.Add("Surface: " + p.Description);
+					if (i is POI)
+					{
+						POI p = i as POI;
+						ListBox.Items.Add("POI: " + p.Description);
+					}
+					if (i is Polyline)
+					{
+						Polyline p = i as Polyline;
+						ListBox.Items.Add("Trajet: " + p.Description);
+					}
+					if (i is Polygon)
+					{
+						Polygon p = i as Polygon;
+						ListBox.Items.Add("Surface: " + p.Description);
+					}
 				}
 			}
 		}
@@ -63,13 +78,11 @@ namespace PersonalMapManager
 			//Vider la ListBox
 			ListBox.Items.Clear();
 
-			if (myPersonalMapData.Load(myPersonalMapData.Prenom, myPersonalMapData.Nom))
-			{
-				MessageBox.Show("Erreur: myPersonalMapData.Load(prenom,nom)");
-				this.Close();
-			}
+			LoginWindow loginWindow = new LoginWindow();
+			loginWindow.Owner = this;
+			loginWindow.ShowDialog();
 			//Charger la ListBox
-			foreach(ICartoObj i in myPersonalMapData.ObservableCollection)
+			foreach (ICartoObj i in myPersonalMapData.ObservableCollection)
 			{
 				if(i is POI)
 				{
@@ -135,6 +148,7 @@ namespace PersonalMapManager
 					myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
 					ListBox.Items.Add("POI: " + poiWindow.Poi.Description);
 				}
+				poiWindow.Close();
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 2)
 			{
@@ -147,6 +161,7 @@ namespace PersonalMapManager
 					myPersonalMapData.ObservableCollection.Add(polylineWindow.Polyline);
 					ListBox.Items.Add("Trajet: " + polylineWindow.Polyline.Description);
 				}
+				polylineWindow.Close();
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 3)
 			{
@@ -159,11 +174,51 @@ namespace PersonalMapManager
 					myPersonalMapData.ObservableCollection.Add(polygonWindow.Polygon);
 					ListBox.Items.Add("Surface: " + polygonWindow.Polygon.Description);
 				}
+				polygonWindow.Close();
 			}
 		}
 		private void Modifier_Click(object sender, RoutedEventArgs e)
 		{
+			int position = ListBox.SelectedIndex;
 
+			ICartoObj i = myPersonalMapData.ObservableCollection.ElementAt(position);
+
+			if(i is POI)
+			{
+				POI p = i as POI;
+				PoiWindow poiWindow = new PoiWindow(p);
+				poiWindow.ShowDialog();
+				myPersonalMapData.ObservableCollection[position] = poiWindow.Poi;
+				if(poiWindow.IsActive)
+				{
+					ListBox.Items[position] = "POI: " + poiWindow.Poi.Description;
+					poiWindow.Close();
+				}	
+			}
+			if (i is Polyline)
+			{
+				Polyline p = i as Polyline;
+				PolylineWindow polylineWindow = new PolylineWindow(p);
+				polylineWindow.ShowDialog();
+				myPersonalMapData.ObservableCollection[position] = polylineWindow.Polyline;
+				if(polylineWindow.IsActive)
+				{
+					ListBox.Items[position] = "Trajet: " + polylineWindow.Polyline.Description;
+					polylineWindow.Close();
+				}
+			}
+			if(i is Polygon)
+			{
+				Polygon p = i as Polygon;
+				PolygonWindow polygonWindow = new PolygonWindow(p);
+				polygonWindow.ShowDialog();
+				myPersonalMapData.ObservableCollection[position] = polygonWindow.Polygon;
+				if(polygonWindow.IsActive)
+				{
+					ListBox.Items[position] = "Surface: " + polygonWindow.Polygon.Description;
+					polygonWindow.Close();
+				}
+			}
 		}
 		private void Supprimer_Click(object sender, RoutedEventArgs e)
 		{
@@ -183,5 +238,11 @@ namespace PersonalMapManager
 				}
 			}
 		}
-    }
+		public static string GetColorName(Color col)
+		{
+			PropertyInfo colorProperty = typeof(Colors).GetProperties()
+				.FirstOrDefault(p => Color.AreClose((Color)p.GetValue(null), col));
+			return colorProperty != null ? colorProperty.Name : "Black";
+		}
+	}
 }
