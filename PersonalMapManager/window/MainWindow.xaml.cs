@@ -4,21 +4,26 @@ using PersonalMapManager.window;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Reflection;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Excel = Microsoft.Office.Interop.Excel;
+using MessageBox = System.Windows.MessageBox;
 using Polygon = MyCartographyObjects.Polygon;
 using Polyline = MyCartographyObjects.Polyline;
 
@@ -28,6 +33,7 @@ namespace PersonalMapManager
 	{
 		//Variables Membres
 		public MyPersonalMapData myPersonalMapData;
+		public static string path = "C:\\Users\\Vincent\\OneDrive - Enseignement de la Province de Liège\\Cours\\B2\\C#\\MyCartographyObjects\\data\\";
 	
 		//Constructeurs
 		public MainWindow()
@@ -66,6 +72,7 @@ namespace PersonalMapManager
 					}
 				}
 			}
+			ListBox.SelectedIndex = 0;
 		}
 
 		//Méthodes
@@ -111,11 +118,39 @@ namespace PersonalMapManager
 		}
 		private void POI_Import_Click(object sender, RoutedEventArgs e)
 		{
-
+			Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+			openFileDlg.DefaultExt = ".csv";
+			openFileDlg.Filter = "csv document (.csv)|*.csv";
+			openFileDlg.ShowDialog();
+			POI newPOI = new POI();
+			string[] lines = File.ReadAllLines(openFileDlg.FileName);
+			for(int i = 0; i < lines.Length; i++)
+			{
+				string s = lines[i];
+				string[] lines2 = s.Split(';');
+				newPOI.Latitude = double.Parse(lines2[0]);
+				newPOI.Longitude = double.Parse(lines2[1]);
+				newPOI.Description = lines2[2];
+			}
+			myPersonalMapData.ObservableCollection.Add(newPOI);
+			ListBox.Items.Add(newPOI);
+			ListBox.SelectedIndex = 0;
 		}
 		private void POI_Export_Click(object sender, RoutedEventArgs e)
 		{
+			ICartoObj i = myPersonalMapData.ObservableCollection[ListBox.SelectedIndex];
+			if (i is POI)
+			{
+				POI poi = i as POI;
+				string filename = poi.Description + ".csv";
 
+				Stream fStream = new FileStream(path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
+				fStream.Close();
+				string text = poi.Latitude.ToString() + ";" + poi.Longitude.ToString() + ";" + poi.Description;
+				File.WriteAllText(path + filename,text);
+				
+				ListBox.SelectedIndex = 0;
+			}
 		}
 		private void Trajet_Import_Click(object sender, RoutedEventArgs e)
 		{
@@ -176,6 +211,7 @@ namespace PersonalMapManager
 				}
 				polygonWindow.Close();
 			}
+			ListBox.SelectedIndex = 0;
 		}
 		private void Modifier_Click(object sender, RoutedEventArgs e)
 		{
