@@ -124,6 +124,12 @@ namespace PersonalMapManager
 			openFileDlg.ShowDialog();
 			POI newPOI = new POI();
 			string[] lines = File.ReadAllLines(openFileDlg.FileName);
+			if(lines.Length > 3)
+			{
+				//Erreur on essaye d'importer un Trajet
+				MessageBox.Show("Erreur,impossible d'ajouter un traject comme POI!");
+				return;
+			}
 			for(int i = 0; i < lines.Length; i++)
 			{
 				string s = lines[i];
@@ -138,27 +144,55 @@ namespace PersonalMapManager
 		}
 		private void POI_Export_Click(object sender, RoutedEventArgs e)
 		{
-			ICartoObj i = myPersonalMapData.ObservableCollection[ListBox.SelectedIndex];
-			if (i is POI)
+			if(myPersonalMapData.ObservableCollection.Count != 0)
 			{
-				POI poi = i as POI;
-				string filename = poi.Description + ".csv";
+				ICartoObj i = myPersonalMapData.ObservableCollection[ListBox.SelectedIndex];
+				if (i is POI)
+				{
+					POI poi = i as POI;
+					string filename = poi.Description + ".csv";
 
-				Stream fStream = new FileStream(path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
-				fStream.Close();
-				string text = poi.Latitude.ToString() + ";" + poi.Longitude.ToString() + ";" + poi.Description;
-				File.WriteAllText(path + filename,text);
-				
-				ListBox.SelectedIndex = 0;
+					Stream fStream = new FileStream(path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
+					fStream.Close();
+					string text = poi.Latitude.ToString() + ";" + poi.Longitude.ToString() + ";" + poi.Description;
+					File.WriteAllText(path + filename, text);
+
+					ListBox.SelectedIndex = 0;
+				}
 			}
 		}
 		private void Trajet_Import_Click(object sender, RoutedEventArgs e)
 		{
-
+	
 		}
 		private void Traject_Export_Click(object sender, RoutedEventArgs e)
 		{
+			if (myPersonalMapData.ObservableCollection.Count != 0)
+			{
+				ICartoObj i = myPersonalMapData.ObservableCollection[ListBox.SelectedIndex];
+				if (i is Polyline)
+				{
+					Polyline polyline = i as Polyline;
+					string filename = polyline.Description + ".csv";
 
+					Stream fStream = new FileStream(path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
+					fStream.Close();
+					List<string> text = new List<string> { };
+					foreach (Coordonnees coords in polyline.Collection)
+					{
+						if(polyline.Collection.ElementAt(0) == coords)
+						{
+							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString() + ";" + polyline.Description);
+						}
+						else
+						{
+							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString());
+						}
+					}
+					File.WriteAllLines(path + filename, text);
+					ListBox.SelectedIndex = 0;
+				}
+			}
 		}
 		private void Exit_Click(object sender, RoutedEventArgs e)
 		{
@@ -215,6 +249,10 @@ namespace PersonalMapManager
 		}
 		private void Modifier_Click(object sender, RoutedEventArgs e)
 		{
+			if(myPersonalMapData.ObservableCollection.Count == 0)
+			{
+				return;
+			}
 			int position = ListBox.SelectedIndex;
 
 			ICartoObj i = myPersonalMapData.ObservableCollection.ElementAt(position);
