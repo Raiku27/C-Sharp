@@ -19,7 +19,8 @@ namespace MyCartographyObjects
 		private string _prenom;
 		private string _email;
 		private ObservableCollection<ICartoObj> _observableCollection;
-		private string path = "C:\\Users\\Vincent\\OneDrive - Enseignement de la Province de Liège\\Cours\\B2\\C#\\MyCartographyObjects\\data\\";
+		private string _path;
+		public string path;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,6 +35,7 @@ namespace MyCartographyObjects
 			Nom = newNom;
 			Prenom = newPrenom;
 			Email = newEmail;
+			Path = "C:\\Users\\Vincent\\OneDrive - Enseignement de la Province de Liège\\Cours\\B2\\C#\\MyCartographyObjects\\data\\";
 			this.setObservableCollection(newObservableCollection);
 		}
 
@@ -89,6 +91,18 @@ namespace MyCartographyObjects
 				return _email;
 			}
 		}
+		public string Path
+		{
+			set
+			{
+				_path = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _path;
+			}
+		}
 		public ObservableCollection<ICartoObj> ObservableCollection
 		{
 			get
@@ -122,7 +136,7 @@ namespace MyCartographyObjects
 		{
 			Debug.Log("[MyPersonalMapData][Save]");
 			BinaryFormatter binFormat = new BinaryFormatter();
-			Stream fStream = new FileStream(path + Prenom + Nom + ".dat", FileMode.Create, FileAccess.Write, FileShare.None);
+			Stream fStream = new FileStream(Path + Prenom + Nom + ".dat", FileMode.Create, FileAccess.Write, FileShare.None);
 			binFormat.Serialize(fStream,Prenom);
 			binFormat.Serialize(fStream,Nom);
 			binFormat.Serialize(fStream,Email);
@@ -146,7 +160,7 @@ namespace MyCartographyObjects
 			BinaryFormatter binFormat = new BinaryFormatter();
 			try
 			{
-				Stream fStream = new FileStream(path + loadPrenom + loadNom + ".dat", FileMode.Open, FileAccess.Read);
+				Stream fStream = new FileStream(Path + loadPrenom + loadNom + ".dat", FileMode.Open, FileAccess.Read);
 				if (fStream == null)
 					return true;
 				Prenom = (string)binFormat.Deserialize(fStream);

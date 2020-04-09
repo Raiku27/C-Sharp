@@ -33,7 +33,6 @@ namespace PersonalMapManager
 	{
 		//Variables Membres
 		public MyPersonalMapData myPersonalMapData;
-		public static string path = "C:\\Users\\Vincent\\OneDrive - Enseignement de la Province de Liège\\Cours\\B2\\C#\\MyCartographyObjects\\data\\";
 	
 		//Constructeurs
 		public MainWindow()
@@ -124,22 +123,22 @@ namespace PersonalMapManager
 			openFileDlg.ShowDialog();
 			POI newPOI = new POI();
 			string[] lines = File.ReadAllLines(openFileDlg.FileName);
-			if(lines.Length > 3)
+			Console.WriteLine(lines.Length);
+			if(lines.Length > 1)
 			{
 				//Erreur on essaye d'importer un Trajet
 				MessageBox.Show("Erreur,impossible d'ajouter un traject comme POI!");
 				return;
 			}
-			for(int i = 0; i < lines.Length; i++)
-			{
-				string s = lines[i];
-				string[] lines2 = s.Split(';');
-				newPOI.Latitude = double.Parse(lines2[0]);
-				newPOI.Longitude = double.Parse(lines2[1]);
-				newPOI.Description = lines2[2];
-			}
+
+			string s = lines[0];
+			string[] lines2 = s.Split(';');
+			newPOI.Latitude = double.Parse(lines2[0]);
+			newPOI.Longitude = double.Parse(lines2[1]);
+			newPOI.Description = lines2[2];
+			
 			myPersonalMapData.ObservableCollection.Add(newPOI);
-			ListBox.Items.Add(newPOI);
+			ListBox.Items.Add("POI: " + newPOI.Description);
 			ListBox.SelectedIndex = 0;
 		}
 		private void POI_Export_Click(object sender, RoutedEventArgs e)
@@ -152,10 +151,10 @@ namespace PersonalMapManager
 					POI poi = i as POI;
 					string filename = poi.Description + ".csv";
 
-					Stream fStream = new FileStream(path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
+					Stream fStream = new FileStream(myPersonalMapData.Path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
 					fStream.Close();
 					string text = poi.Latitude.ToString() + ";" + poi.Longitude.ToString() + ";" + poi.Description;
-					File.WriteAllText(path + filename, text);
+					File.WriteAllText(myPersonalMapData.Path + filename, text);
 
 					ListBox.SelectedIndex = 0;
 				}
@@ -163,7 +162,30 @@ namespace PersonalMapManager
 		}
 		private void Trajet_Import_Click(object sender, RoutedEventArgs e)
 		{
-	
+			Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+			openFileDlg.DefaultExt = ".csv";
+			openFileDlg.Filter = "csv document (.csv)|*.csv";
+			openFileDlg.ShowDialog();
+			Polyline newPolyline = new Polyline();
+			string[] lines = File.ReadAllLines(openFileDlg.FileName);
+			Console.WriteLine(lines.Length);
+			if (lines.Length < 2)
+			{
+				//Erreur on essaye d'importer un POI
+				MessageBox.Show("Erreur,impossible d'ajouter un POI comme trajet!");
+				return;
+			}
+
+			for(int i = 0; i < lines.Length; i++)
+			{
+				string[] lines2 = lines[i].Split(';');
+				newPolyline.Collection.Add(new Coordonnees(double.Parse(lines2[0]), double.Parse(lines2[1])));
+				newPolyline.Description = lines2[2];
+			}
+
+			myPersonalMapData.ObservableCollection.Add(newPolyline);
+			ListBox.Items.Add("Trajet: " + newPolyline.Description);
+			ListBox.SelectedIndex = 0;
 		}
 		private void Traject_Export_Click(object sender, RoutedEventArgs e)
 		{
@@ -175,7 +197,7 @@ namespace PersonalMapManager
 					Polyline polyline = i as Polyline;
 					string filename = polyline.Description + ".csv";
 
-					Stream fStream = new FileStream(path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
+					Stream fStream = new FileStream(myPersonalMapData.Path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
 					fStream.Close();
 					List<string> text = new List<string> { };
 					foreach (Coordonnees coords in polyline.Collection)
@@ -189,7 +211,7 @@ namespace PersonalMapManager
 							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString());
 						}
 					}
-					File.WriteAllLines(path + filename, text);
+					File.WriteAllLines(myPersonalMapData.Path + filename, text);
 					ListBox.SelectedIndex = 0;
 				}
 			}
@@ -317,6 +339,14 @@ namespace PersonalMapManager
 			PropertyInfo colorProperty = typeof(Colors).GetProperties()
 				.FirstOrDefault(p => Color.AreClose((Color)p.GetValue(null), col));
 			return colorProperty != null ? colorProperty.Name : "Black";
+		}
+
+		private void Options_Click(object sender, RoutedEventArgs e)
+		{
+			OptionWindow optionWindow = new OptionWindow();
+			optionWindow.Owner = this;
+			optionWindow.Show();
+			Focusable = true;
 		}
 	}
 }
