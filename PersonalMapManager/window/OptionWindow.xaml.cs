@@ -36,7 +36,7 @@ namespace PersonalMapManager.window
 					ComboBoxCouleur.Items.Add(property.Name);
 				}
 			}
-			Couleur = "Black";
+			Couleur = "White";
 		}
 		public string Couleur
 		{
