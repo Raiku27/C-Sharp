@@ -4,10 +4,12 @@ using PersonalMapManager.window;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Media;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Excel = Microsoft.Office.Interop.Excel;
 using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Polygon = MyCartographyObjects.Polygon;
 using Polyline = MyCartographyObjects.Polyline;
 
@@ -41,6 +44,9 @@ namespace PersonalMapManager
 			InitializeComponent();
 			DataContext = this;
 			Map.Center = new Location(50.620090, 5.581406);
+			Map.MouseDoubleClick += new MouseButtonEventHandler(Map_DoubleClick);
+			Map.MouseLeftButtonDown += new MouseButtonEventHandler(Map_LeftButtonDown);
+			Map.MouseRightButtonDown += new MouseButtonEventHandler(Map_RightButtonDown);
 			LoginWindow loginWindow = new LoginWindow();
 			Focusable = false;
 			this.Show();
@@ -48,54 +54,14 @@ namespace PersonalMapManager
 			loginWindow.ShowDialog();
 			if (myPersonalMapData == null)
 			{
-				Close();
+				System.Environment.Exit(1);
 			}
-			//Charger la ListBox
-			foreach (ICartoObj i in myPersonalMapData.ObservableCollection)
-			{
-				if (i is POI)
-				{
-					POI p = i as POI;
-					ListBox.Items.Add("POI: " + p.Description);
-					Pushpin pushpin = new Pushpin();
-					pushpin.Opacity = 0.7;
-					pushpin.Location = new Location(p.Latitude,p.Longitude);
-					pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
-					Map.Children.Add(pushpin);
-				}
-				if (i is Polyline)
-				{
-					Polyline p = i as Polyline;
-					ListBox.Items.Add("Trajet: " + p.Description);
-					MapPolyline mapPolyline = new MapPolyline();
-					mapPolyline.Opacity = 0.7;
-					mapPolyline.StrokeThickness = p.Epaisseur;
-					mapPolyline.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-					mapPolyline.Locations = new LocationCollection();
-					foreach(Coordonnees coords in p.Collection)
-					{
-						mapPolyline.Locations.Add(new Location(coords.Latitude,coords.Longitude));
-					}
-					Map.Children.Add(mapPolyline);
-				}
-				if (i is Polygon)
-				{
-					Polygon p = i as Polygon;
-					ListBox.Items.Add("Surface: " + p.Description);
-					MapPolygon mapPolygon = new MapPolygon();
-					mapPolygon.Opacity = 0.7;
-					mapPolygon.StrokeThickness = 3;
-					mapPolygon.Fill = new System.Windows.Media.SolidColorBrush(p.RemplissageColor);
-					mapPolygon.Stroke = new System.Windows.Media.SolidColorBrush(p.ContourColor);
-					mapPolygon.Locations = new LocationCollection();
-					foreach (Coordonnees coords in p.Collection)
-					{
-						mapPolygon.Locations.Add(new Location(coords.Latitude, coords.Longitude));
-					}
-					Map.Children.Add(mapPolygon);
-				}
-			}
-			ListBox.SelectedIndex = 0;
+			UpdateMainWindow();
+		}
+
+		private MouseButtonEventHandler Map_DoubleClick()
+		{
+			throw new NotImplementedException();
 		}
 
 		//Méthodes
@@ -105,57 +71,10 @@ namespace PersonalMapManager
 		}
 		private void Open_Click(object sender, RoutedEventArgs e)
 		{
-			//Vider la ListBox
-			ListBox.Items.Clear();
-
 			LoginWindow loginWindow = new LoginWindow();
 			loginWindow.Owner = this;
 			loginWindow.ShowDialog();
-			//Charger la ListBox
-			foreach (ICartoObj i in myPersonalMapData.ObservableCollection)
-			{
-				if(i is POI)
-				{
-					POI p = i as POI;
-					ListBox.Items.Add("POI: " + p.Description);
-					Pushpin pushpin = new Pushpin();
-					pushpin.Opacity = 0.7;
-					pushpin.Location = new Location(p.Latitude, p.Longitude);
-					pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
-					Map.Children.Add(pushpin);
-				}
-				if(i is Polyline)
-				{
-					Polyline p = i as Polyline;
-					ListBox.Items.Add("Trajet: " + p.Description);
-					MapPolyline mapPolyline = new MapPolyline();
-					mapPolyline.Opacity = 0.7;
-					mapPolyline.StrokeThickness = p.Epaisseur;
-					mapPolyline.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-					mapPolyline.Locations = new LocationCollection();
-					foreach (Coordonnees coords in p.Collection)
-					{
-						mapPolyline.Locations.Add(new Location(coords.Latitude, coords.Longitude));
-					}
-					Map.Children.Add(mapPolyline);
-				}
-				if(i is Polygon)
-				{
-					Polygon p = i as Polygon;
-					ListBox.Items.Add("Surface: " + p.Description);
-					MapPolygon mapPolygon = new MapPolygon();
-					mapPolygon.Opacity = 0.7;
-					mapPolygon.StrokeThickness = 3;
-					mapPolygon.Fill = new System.Windows.Media.SolidColorBrush(p.RemplissageColor);
-					mapPolygon.Stroke = new System.Windows.Media.SolidColorBrush(p.ContourColor);
-					mapPolygon.Locations = new LocationCollection();
-					foreach (Coordonnees coords in p.Collection)
-					{
-						mapPolygon.Locations.Add(new Location(coords.Latitude, coords.Longitude));
-					}
-					Map.Children.Add(mapPolygon);
-				}
-			}
+			UpdateMainWindow();
 		}
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -188,15 +107,7 @@ namespace PersonalMapManager
 			newPOI.Description = lines2[2];
 			
 			myPersonalMapData.ObservableCollection.Add(newPOI);
-			ListBox.Items.Add("POI: " + newPOI.Description);
-
-			Pushpin pushpin = new Pushpin();
-			pushpin.Opacity = 0.7;
-			pushpin.Location = new Location(newPOI.Latitude, newPOI.Longitude);
-			pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
-			Map.Children.Add(pushpin);
-
-			ListBox.SelectedIndex = 0;
+			UpdateMainWindow();
 		}
 		private void POI_Export_Click(object sender, RoutedEventArgs e)
 		{
@@ -243,18 +154,7 @@ namespace PersonalMapManager
 			myPersonalMapData.ObservableCollection.Add(newPolyline);
 			ListBox.Items.Add("Trajet: " + newPolyline.Description);
 
-			MapPolyline mapPolyline = new MapPolyline();
-			mapPolyline.Opacity = 0.7;
-			mapPolyline.StrokeThickness = newPolyline.Epaisseur;
-			mapPolyline.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
-			mapPolyline.Locations = new LocationCollection();
-			foreach (Coordonnees coords in newPolyline.Collection)
-			{
-				mapPolyline.Locations.Add(new Location(coords.Latitude, coords.Longitude));
-			}
-			Map.Children.Add(mapPolyline);
-
-			ListBox.SelectedIndex = 0;
+			UpdateMainWindow();
 		}
 		private void Traject_Export_Click(object sender, RoutedEventArgs e)
 		{
@@ -303,40 +203,37 @@ namespace PersonalMapManager
 		{
 			if (ComboBoxChoixObjet.SelectedIndex == 1)
 			{
-				//POI
 				PoiWindow poiWindow = new PoiWindow();
 				poiWindow.Owner = this;
 				poiWindow.ShowDialog();
 				if(poiWindow.Poi != null)
 				{
 					myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
-					ListBox.Items.Add("POI: " + poiWindow.Poi.Description);
+					UpdateMainWindow();
 				}
 				poiWindow.Close();
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 2)
 			{
-				//Trajet
 				PolylineWindow polylineWindow = new PolylineWindow();
 				polylineWindow.Owner = this;
 				polylineWindow.ShowDialog();
 				if(polylineWindow.Polyline != null)
 				{
 					myPersonalMapData.ObservableCollection.Add(polylineWindow.Polyline);
-					ListBox.Items.Add("Trajet: " + polylineWindow.Polyline.Description);
+					UpdateMainWindow();
 				}
 				polylineWindow.Close();
 			}
 			else if (ComboBoxChoixObjet.SelectedIndex == 3)
 			{
-				//Surface
 				PolygonWindow polygonWindow = new PolygonWindow();
 				polygonWindow.Owner = this;
 				polygonWindow.ShowDialog();
 				if(polygonWindow.Polygon != null)
 				{
 					myPersonalMapData.ObservableCollection.Add(polygonWindow.Polygon);
-					ListBox.Items.Add("Surface: " + polygonWindow.Polygon.Description);
+					UpdateMainWindow();
 				}
 				polygonWindow.Close();
 			}
@@ -344,7 +241,7 @@ namespace PersonalMapManager
 		}
 		private void Modifier_Click(object sender, RoutedEventArgs e)
 		{
-			if(myPersonalMapData.ObservableCollection.Count == 0)
+			if (myPersonalMapData.ObservableCollection.Count == 0)
 			{
 				return;
 			}
@@ -352,13 +249,12 @@ namespace PersonalMapManager
 
 			ICartoObj i = myPersonalMapData.ObservableCollection.ElementAt(position);
 
-			if(i is POI)
+			if (i is POI)
 			{
 				POI p = i as POI;
 				PoiWindow poiWindow = new PoiWindow(p);
 				poiWindow.ShowDialog();
 				myPersonalMapData.ObservableCollection[position] = poiWindow.Poi;
-				ListBox.Items[position] = "POI: " + poiWindow.Poi.Description;
 				ListBox.SelectedIndex = position;
 				poiWindow.Close();
 			}
@@ -368,38 +264,28 @@ namespace PersonalMapManager
 				PolylineWindow polylineWindow = new PolylineWindow(p);
 				polylineWindow.ShowDialog();
 				myPersonalMapData.ObservableCollection[position] = polylineWindow.Polyline;
-				ListBox.Items[position] = "Trajet: " + polylineWindow.Polyline.Description;
 				ListBox.SelectedIndex = position;
 				polylineWindow.Close();
 			}
-			if(i is Polygon)
+			if (i is Polygon)
 			{
 				Polygon p = i as Polygon;
 				PolygonWindow polygonWindow = new PolygonWindow(p);
 				polygonWindow.ShowDialog();
 				myPersonalMapData.ObservableCollection[position] = polygonWindow.Polygon;
-				ListBox.Items[position] = "Surface: " + polygonWindow.Polygon.Description;
 				ListBox.SelectedIndex = position;
 				polygonWindow.Close();
 			}
+			UpdateMainWindow();
 		}
 		private void Supprimer_Click(object sender, RoutedEventArgs e)
 		{
-			if(ListBox.Items.Count != 0)
+			if(myPersonalMapData.ObservableCollection.Count != 0)
 			{
-				int position = ListBox.SelectedIndex;
-				ICartoObj temp = myPersonalMapData.ObservableCollection.ElementAt(position);
-				if(temp == null)
-				{
-					return;
-				}
-				else
-				{
-					myPersonalMapData.ObservableCollection.RemoveAt(position);
-					ListBox.Items.RemoveAt(position);
-					ListBox.SelectedIndex = ListBox.Items.Count - 1;
-				}
-			}
+				myPersonalMapData.ObservableCollection.RemoveAt(ListBox.SelectedIndex);
+				ListBox.Items.RemoveAt(ListBox.SelectedIndex);
+				UpdateMainWindow();	
+			}		
 		}
 		public static string GetColorName(Color col)
 		{
@@ -434,11 +320,120 @@ namespace PersonalMapManager
 				}
 			}
 		}
-
+		
 		public void OnUpdateGUI(object source, UpdateGUIEventArgs e)
 		{
 			ListBox.Background = (Brush)new BrushConverter().ConvertFromString(e.Background);
 			ListBox.Foreground = (Brush)new BrushConverter().ConvertFromString(e.Foreground);
+		}
+		public void UpdateMainWindow()
+		{
+			if(myPersonalMapData != null)
+			{
+				Map.Children.Clear();
+				ListBox.Items.Clear();
+				foreach (ICartoObj i in myPersonalMapData.ObservableCollection)
+				{
+					if (i is POI)
+					{
+						POI p = i as POI;
+						Pushpin pushpin = new Pushpin();
+						pushpin.Opacity = 0.7;
+						pushpin.Location = new Location(p.Latitude, p.Longitude);
+						ListBox.Items.Add("POI: " + p.Description);
+						pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
+						Map.Children.Add(pushpin);
+					}
+					if (i is Polyline)
+					{
+						Polyline p = i as Polyline;
+						MapPolyline mapPolyline = new MapPolyline();
+						mapPolyline.Opacity = 0.7;
+						mapPolyline.StrokeThickness = p.Epaisseur;
+						ListBox.Items.Add("Trajet: " + p.Description);
+						mapPolyline.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+						mapPolyline.Locations = new LocationCollection();
+						foreach (object obj in p.Collection)
+						{
+							if(obj is POI)
+							{
+								POI poi = obj as POI;
+								Pushpin pushpin = new Pushpin();
+								pushpin.Opacity = 0.7;
+								pushpin.Location = new Location(poi.Latitude, poi.Longitude);
+								pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
+								Map.Children.Add(pushpin);
+							}
+							mapPolyline.Locations.Add(new Location(((Coordonnees)obj).Latitude, ((Coordonnees)obj).Longitude));
+						}
+						Map.Children.Add(mapPolyline);
+					}
+					if (i is Polygon)
+					{
+						Polygon p = i as Polygon;
+						MapPolygon mapPolygon = new MapPolygon();
+						mapPolygon.Opacity = 0.7;
+						mapPolygon.StrokeThickness = 3;
+						ListBox.Items.Add("Surface: " + p.Description);
+						mapPolygon.Fill = new System.Windows.Media.SolidColorBrush(p.RemplissageColor);
+						mapPolygon.Stroke = new System.Windows.Media.SolidColorBrush(p.ContourColor);
+						mapPolygon.Locations = new LocationCollection();
+						foreach (Coordonnees coords in p.Collection)
+						{
+							mapPolygon.Locations.Add(new Location(coords.Latitude, coords.Longitude));
+						}
+						Map.Children.Add(mapPolygon);
+					}
+				}
+			}
+			ListBox.SelectedIndex = ListBox.Items.Count - 1;
+		}
+		private void Map_DoubleClick(object sender, MouseEventArgs e)
+		{
+			//Tester si il y a une pin/trajet
+			Point mousePosition = e.GetPosition(Map);
+			Location location = Map.ViewportPointToLocation(mousePosition);
+
+			foreach(ICartoObj obj in myPersonalMapData.ObservableCollection)
+			{
+				if(obj is POI)
+				{
+					Coordonnees coords = new Coordonnees(((POI)obj).Latitude, ((POI)obj).Longitude);
+					if (coords.IsPointClose(new Coordonnees(location.Latitude,location.Longitude),0.001))
+					{
+						//Selectioner dans la listbox
+						//Afficher
+					}
+				}
+				if(obj is Polyline)
+				{
+
+				}
+			}
+
+			PoiWindow poiWindow = new PoiWindow();
+			poiWindow.Owner = this;
+			poiWindow.Latitude = location.Latitude.ToString();
+			poiWindow.Longitude = location.Longitude.ToString();
+			poiWindow.ShowDialog();
+			if (poiWindow.Poi != null)
+			{
+				myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
+				UpdateMainWindow();
+			}
+			poiWindow.Close();
+		}
+		private void Map_LeftButtonDown(object sender, MouseEventArgs e)
+		{
+			Point mousePosition = e.GetPosition(Map);
+			Location location = Map.ViewportPointToLocation(mousePosition);
+			Console.WriteLine("Latutide! {0} Longitude {1}",location.Latitude,location.Longitude);
+		}
+
+		
+		private void Map_RightButtonDown(object sender, MouseEventArgs e)
+		{
+			
 		}
 	}
 }
