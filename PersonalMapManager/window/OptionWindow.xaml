@@ -7,7 +7,7 @@
 		xmlns:MyCartographyObjects="clr-namespace:MyCartographyObjects;assembly=MyCartographyObjects"
         mc:Ignorable="d"
         Title="Options"
-		Height="250"
+		Height="300"
 		Width="400"
 		ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen"
@@ -22,11 +22,15 @@
 			</Border.Background>
 		</Border>
 		<Label Content="Option:" Margin="10,10,0,0" FontFamily="Unispace" FontSize="24" Width="354" Height="52" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-		<Label Content="Chemin:" Margin="20,49,20,132" FontFamily="Unispace" FontSize="20"/>
-		<Label Content="Couleur:" Margin="20,137,20,20" FontFamily="Unispace" FontSize="20"/>
-		<TextBox Text="ca marche pas" Margin="20,89,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="354" Height="43" VerticalAlignment="Top" FontFamily="Unispace" FontSize="14"/>
+		<Label Content="Chemin:" Margin="20,49,0,0" FontFamily="Unispace" FontSize="20" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="354"/>
+		<Label Content="Background:" Margin="20,132,0,0" FontFamily="Unispace" FontSize="20" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="354" VerticalContentAlignment="Center"/>
+		<Label Content="Foreground:" Margin="20,174,0,0" FontFamily="Unispace" FontSize="20" HorizontalAlignment="Left" Width="354" VerticalContentAlignment="Center" Height="40" VerticalAlignment="Top"/>
+		<TextBox Text="{Binding Path}" Margin="20,89,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="354" Height="43" VerticalAlignment="Top" FontFamily="Unispace" FontSize="14"/>
 		<Button x:Name="Parcourir" Margin="255,54,0,0" Content="Parcourir..." Click="Parcourir_Click" Background="Transparent" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Width="119" Height="30" VerticalAlignment="Top" />
-		<ComboBox x:Name="ComboBoxCouleur" SelectedItem="{Binding Couleur}" Margin="145,137,0,0" HorizontalAlignment="Left" Width="229" Height="32" VerticalAlignment="Top" FontFamily="Unispace" FontSize="14" VerticalContentAlignment="Center"/>
-		<Button x:Name="OK" Margin="255,174,0,0" Background="Green" Content="Ok" FontFamily="Unispace" FontSize="18" HorizontalAlignment="Left" Width="119" Height="30" VerticalAlignment="Top" Click="OK_Click"/>
+		<ComboBox x:Name="ComboBoxBackground" SelectedItem="{Binding BackgroundColor}" Margin="161,137,0,0" HorizontalAlignment="Left" Width="213" Height="32" VerticalAlignment="Top" FontFamily="Unispace" FontSize="14" VerticalContentAlignment="Center"/>
+		<ComboBox x:Name="ComboBoxForeground" SelectedItem="{Binding ForegroundColor}" Margin="161,177,0,0" HorizontalAlignment="Left" Width="213" Height="32" VerticalAlignment="Top" FontFamily="Unispace" FontSize="14" VerticalContentAlignment="Center"/>
+		<Button x:Name="ButtonAnnuler" Click="ButtonAnnuler_Click" Content="Annuler" Margin="20,221,0,0" Width="90" HorizontalAlignment="Left" Background="Red" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" VerticalAlignment="Top"/>
+		<Button x:Name="ButtonAppliquer" Click="ButtonAppliquer_Click" Content="Appliquer" Margin="0,221,0,0" Background="Green" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Width="90" />
+		<Button x:Name="ButtunOk" Click="ButtunOk_Click" Content="Ok" Margin="0,221,20,0" Background="Transparent" BorderBrush="Black" BorderThickness="2" FontSize="14" FontFamily="Unispace" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="90"/>
 	</Grid>
 </Window>

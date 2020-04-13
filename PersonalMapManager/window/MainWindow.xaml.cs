@@ -33,6 +33,7 @@ namespace PersonalMapManager
 	{
 		//Variables Membres
 		public MyPersonalMapData myPersonalMapData;
+		private OptionWindow _optionWindow;
 	
 		//Constructeurs
 		public MainWindow()
@@ -95,7 +96,6 @@ namespace PersonalMapManager
 				}
 			}
 			ListBox.SelectedIndex = 0;
-
 		}
 
 		//Méthodes
@@ -208,10 +208,10 @@ namespace PersonalMapManager
 					POI poi = i as POI;
 					string filename = poi.Description + ".csv";
 
-					Stream fStream = new FileStream(myPersonalMapData.Path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
+					Stream fStream = new FileStream(myPersonalMapData.Path + "\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None);
 					fStream.Close();
 					string text = poi.Latitude.ToString() + ";" + poi.Longitude.ToString() + ";" + poi.Description;
-					File.WriteAllText(myPersonalMapData.Path + filename, text);
+					File.WriteAllText(myPersonalMapData.Path + "\\" + filename, text);
 
 					ListBox.SelectedIndex = 0;
 				}
@@ -266,11 +266,15 @@ namespace PersonalMapManager
 					Polyline polyline = i as Polyline;
 					string filename = polyline.Description + ".csv";
 
-					Stream fStream = new FileStream(myPersonalMapData.Path + filename, FileMode.Create, FileAccess.Write, FileShare.None);
+					Stream fStream = new FileStream(myPersonalMapData.Path + "\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None);
 					fStream.Close();
 					List<string> text = new List<string> { };
 					foreach (Coordonnees coords in polyline.Collection)
 					{
+						if(coords is POI)
+						{
+						
+						}
 						if(polyline.Collection.ElementAt(0) == coords)
 						{
 							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString() + ";" + polyline.Description);
@@ -280,7 +284,7 @@ namespace PersonalMapManager
 							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString());
 						}
 					}
-					File.WriteAllLines(myPersonalMapData.Path + filename, text);
+					File.WriteAllLines(myPersonalMapData.Path + "\\" + filename, text);
 					ListBox.SelectedIndex = 0;
 				}
 			}
@@ -355,6 +359,7 @@ namespace PersonalMapManager
 				poiWindow.ShowDialog();
 				myPersonalMapData.ObservableCollection[position] = poiWindow.Poi;
 				ListBox.Items[position] = "POI: " + poiWindow.Poi.Description;
+				ListBox.SelectedIndex = position;
 				poiWindow.Close();
 			}
 			if (i is Polyline)
@@ -364,6 +369,7 @@ namespace PersonalMapManager
 				polylineWindow.ShowDialog();
 				myPersonalMapData.ObservableCollection[position] = polylineWindow.Polyline;
 				ListBox.Items[position] = "Trajet: " + polylineWindow.Polyline.Description;
+				ListBox.SelectedIndex = position;
 				polylineWindow.Close();
 			}
 			if(i is Polygon)
@@ -373,6 +379,7 @@ namespace PersonalMapManager
 				polygonWindow.ShowDialog();
 				myPersonalMapData.ObservableCollection[position] = polygonWindow.Polygon;
 				ListBox.Items[position] = "Surface: " + polygonWindow.Polygon.Description;
+				ListBox.SelectedIndex = position;
 				polygonWindow.Close();
 			}
 		}
@@ -400,13 +407,38 @@ namespace PersonalMapManager
 				.FirstOrDefault(p => Color.AreClose((Color)p.GetValue(null), col));
 			return colorProperty != null ? colorProperty.Name : "Black";
 		}
+		public static string GetBrushName(SolidColorBrush brush)
+		{
+			var results = typeof(Colors).GetProperties().Where(
+			 p => (Color)p.GetValue(null, null) == brush.Color).Select(p => p.Name);
+			return results.Count() > 0 ? results.First() : "Black";
+		}
 
 		private void Options_Click(object sender, RoutedEventArgs e)
 		{
-			OptionWindow optionWindow = new OptionWindow();
-			optionWindow.Owner = this;
-			optionWindow.Show();
-			Focusable = true;
+			if(_optionWindow == null)
+			{
+				_optionWindow = new OptionWindow(this);
+				_optionWindow.Show();
+				_optionWindow.UpdateGUI += OnUpdateGUI;
+				Focusable = true;
+			}
+			else
+			{
+				if(!_optionWindow.IsLoaded)
+				{
+					_optionWindow = new OptionWindow(this);
+					_optionWindow.Show();
+					_optionWindow.UpdateGUI += OnUpdateGUI;
+					Focusable = true;
+				}
+			}
+		}
+
+		public void OnUpdateGUI(object source, UpdateGUIEventArgs e)
+		{
+			ListBox.Background = (Brush)new BrushConverter().ConvertFromString(e.Background);
+			ListBox.Foreground = (Brush)new BrushConverter().ConvertFromString(e.Foreground);
 		}
 	}
 }

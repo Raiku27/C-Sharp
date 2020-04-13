@@ -36,6 +36,7 @@ namespace PersonalMapManager.window
 		public string _couleur;
 		public string _epaisseur;
 		public string _description;
+		public string _descriptionCoordonnees;
 		private bool modifier = false;
 
 		//Constructeur
@@ -43,7 +44,6 @@ namespace PersonalMapManager.window
 		{
 			InitializeComponent();
 			DataContext = this;
-			
 
 			foreach (PropertyInfo property in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
 				if (property.PropertyType == typeof(System.Drawing.Color))
@@ -54,6 +54,7 @@ namespace PersonalMapManager.window
 			Couleur = "Black";
 			Epaisseur = "1";
 			Description = "";
+			DescriptionCoordonnees = "";
 		}
 
 		public PolylineWindow(Polyline newPolyline)
@@ -70,10 +71,12 @@ namespace PersonalMapManager.window
 			Couleur = MainWindow.GetColorName(newPolyline.Color);
 			Epaisseur = newPolyline.Epaisseur.ToString();
 			Description = newPolyline.Description;
+			DescriptionCoordonnees = "";
 			foreach (Coordonnees c in newPolyline.Collection)
 			{
 				ListBoxCoordonnees.Items.Add(c.ToString());
 			}
+			hasAppliquerBeenClicked = true;
 			modifier = true;
 		}
 
@@ -126,6 +129,18 @@ namespace PersonalMapManager.window
 				return _description;
 			}
 		}
+		public string DescriptionCoordonnees
+		{
+			set
+			{
+				_descriptionCoordonnees = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _descriptionCoordonnees;
+			}
+		}
 		public string Latitude
 		{
 			set
@@ -154,13 +169,27 @@ namespace PersonalMapManager.window
 		//Méthodes
 		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
 		{
-			double outLatitude;
-			double outLongitude;
-			double.TryParse(Latitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLatitude);
-			double.TryParse(Longitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLongitude);
-			_temp.Collection.Add(new Coordonnees(outLatitude,outLongitude));
-			ListBoxCoordonnees.Items.Add(new Coordonnees(outLatitude, outLongitude).ToString());
-			ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
+			//Ajouter une Coordonnee ou POI
+			if(DescriptionCoordonnees.Length == 0)
+			{
+				double outLatitude;
+				double outLongitude;
+				double.TryParse(Latitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLatitude);
+				double.TryParse(Longitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLongitude);
+				_temp.Collection.Add(new Coordonnees(outLatitude,outLongitude));
+				ListBoxCoordonnees.Items.Add(new Coordonnees(outLatitude, outLongitude).ToString());
+				ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
+			}
+			else
+			{
+				double outLatitude;
+				double outLongitude;
+				double.TryParse(Latitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLatitude);
+				double.TryParse(Longitude.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out outLongitude);
+				_temp.Collection.Add(new POI(DescriptionCoordonnees,new Coordonnees(outLatitude,outLongitude)));
+				ListBoxCoordonnees.Items.Add(new POI(DescriptionCoordonnees, new Coordonnees(outLatitude, outLongitude)).ToString());
+				ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
+			}
 		}
 		private void ButtonRetirer_Click(object sender, RoutedEventArgs e)
 		{
@@ -196,6 +225,7 @@ namespace PersonalMapManager.window
 		{
 			if(modifier)
 			{
+				Polyline = _temp;
 				Hide();
 			}
 			else
@@ -206,7 +236,15 @@ namespace PersonalMapManager.window
 		}
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			Polyline = null;
+			if(modifier)
+			{
+				Polyline = _temp;
+			}
+			else
+			{
+				Polyline = null;
+			}
+	
 		}
 
 		//Interfaces

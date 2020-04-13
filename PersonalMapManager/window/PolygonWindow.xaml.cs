@@ -56,6 +56,7 @@ namespace PersonalMapManager.window
 			Latitude = "0,000";
 			Longitude = "0,000";
 			Description = "";
+			ListBoxCoordonnees.SelectedIndex = 0;
 		}
 
 		public PolygonWindow(Polygon newPolygon)
@@ -83,6 +84,7 @@ namespace PersonalMapManager.window
 			}
 			hasAppliquerBeenClicked = true;
 			modifier = true;
+			ListBoxCoordonnees.SelectedIndex = 0;
 		}
 
 
@@ -197,6 +199,10 @@ namespace PersonalMapManager.window
 			{
 				_polygon = null;
 			}
+			else
+			{
+				Polygon = _temp;
+			}
 		}
 		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
 		{
@@ -223,6 +229,7 @@ namespace PersonalMapManager.window
 		{
 			if(modifier)
 			{
+				Polygon = _temp;
 				Hide();
 			}
 			else

@@ -145,6 +145,10 @@ namespace PersonalMapManager.window
 			{
 				Poi = null;
 			}
+			else
+			{
+				Hide();
+			}
 		}
 
 		//Interfaces

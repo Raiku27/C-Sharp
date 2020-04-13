@@ -1,7 +1,10 @@
-﻿using MyCartographyObjects;
+﻿using Microsoft.Office.Interop.Excel;
+using MyCartographyObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -12,56 +15,111 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Brushes = System.Windows.Media.Brushes;
+using Window = System.Windows.Window;
 
 namespace PersonalMapManager.window
 {
 	public partial class OptionWindow : Window,INotifyPropertyChanged
 	{
-		private string _couleur;
+		private string _path;
+		private string _background;
+		private string _foreground;
+		private bool hasAppliquerBeenClicked = false;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public OptionWindow()
+		public delegate void UpdateGUIEventHandler(object source, UpdateGUIEventArgs args);
+		public event UpdateGUIEventHandler UpdateGUI;
+
+
+		public OptionWindow(MainWindow owner)
 		{
 			InitializeComponent();
 			DataContext = this;
+			Owner = owner;
 			foreach (PropertyInfo property in typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.Public))
 			{
 				if (property.PropertyType == typeof(System.Drawing.Color))
 				{
-					ComboBoxCouleur.Items.Add(property.Name);
+					ComboBoxBackground.Items.Add(property.Name);
+					ComboBoxForeground.Items.Add(property.Name);
 				}
 			}
-			Couleur = "White";
+			Path = ((MainWindow)Owner).myPersonalMapData.Path;
+			BackgroundColor = MainWindow.GetBrushName(((MainWindow)Owner).ListBox.Background as SolidColorBrush);
+			ForegroundColor = MainWindow.GetBrushName(((MainWindow)Owner).ListBox.Foreground as SolidColorBrush);
 		}
-		public string Couleur
+		public string BackgroundColor
 		{
 			set
 			{
-				_couleur = value;
+				_background = value;
 				OnPropertyChanged();
 			}
 			get
 			{
-				return _couleur;
+				return _background;
+			}
+		}
+		public string ForegroundColor
+		{
+			set
+			{
+				_foreground = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _foreground;
+			}
+		}
+		public string Path
+		{
+			set
+			{
+				_path = value;
+				OnPropertyChanged();
+			}
+			get
+			{
+				return _path;
 			}
 		}
 
-
-
 		private void Parcourir_Click(object sender, RoutedEventArgs e)
         {
-			//Ouvrir un popup et choisir le chemin
-        }
+			FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+			folderBrowserDialog.SelectedPath = null;
+			folderBrowserDialog.ShowDialog();
 
-		private void OK_Click(object sender, RoutedEventArgs e)
+			((MainWindow)Owner).myPersonalMapData.Path = folderBrowserDialog.SelectedPath;
+        }
+		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
 		{
-			SolidColorBrush temp = (SolidColorBrush)new BrushConverter().ConvertFromString(Couleur);
-			((MainWindow)Owner).ListBox.Background = temp;
+			Close();
+		}
+		private void ButtonAppliquer_Click(object sender, RoutedEventArgs e)
+		{
+			hasAppliquerBeenClicked = true;
+			OnUpdateGUI();
+		}
+		private void ButtunOk_Click(object sender, RoutedEventArgs e)
+		{
+			if(hasAppliquerBeenClicked)
+			{
+				Close();
+			}
+		}
+		protected virtual void OnUpdateGUI()
+		{
+			if (UpdateGUI != null)
+				UpdateGUI(this, new UpdateGUIEventArgs(BackgroundColor,ForegroundColor));
 		}
 		//Interfaces
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
