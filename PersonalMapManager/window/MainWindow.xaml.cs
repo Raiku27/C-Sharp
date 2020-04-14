@@ -25,6 +25,8 @@ using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Excel = Microsoft.Office.Interop.Excel;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using KeyEventHandler = System.Windows.Input.KeyEventHandler;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Polygon = MyCartographyObjects.Polygon;
@@ -44,9 +46,6 @@ namespace PersonalMapManager
 			InitializeComponent();
 			DataContext = this;
 			Map.Center = new Location(50.620090, 5.581406);
-			Map.MouseDoubleClick += new MouseButtonEventHandler(Map_DoubleClick);
-			Map.MouseLeftButtonDown += new MouseButtonEventHandler(Map_LeftButtonDown);
-			Map.MouseRightButtonDown += new MouseButtonEventHandler(Map_RightButtonDown);
 			LoginWindow loginWindow = new LoginWindow();
 			Focusable = false;
 			this.Show();
@@ -57,6 +56,9 @@ namespace PersonalMapManager
 				System.Environment.Exit(1);
 			}
 			UpdateMainWindow();
+			Map.MouseDoubleClick += new MouseButtonEventHandler(Map_DoubleClick);
+			Map.MouseRightButtonDown += new MouseButtonEventHandler(Map_RightButtonDown);
+			Map.KeyDown += new KeyEventHandler(Map_KeyDown);
 		}
 
 		private MouseButtonEventHandler Map_DoubleClick()
@@ -390,50 +392,79 @@ namespace PersonalMapManager
 		}
 		private void Map_DoubleClick(object sender, MouseEventArgs e)
 		{
-			//Tester si il y a une pin/trajet
+			Console.WriteLine("Double click!");
+			e.Handled = true;
 			Point mousePosition = e.GetPosition(Map);
-			Location location = Map.ViewportPointToLocation(mousePosition);
+			Location mouseLocation = Map.ViewportPointToLocation(mousePosition);
+			bool pinPresent = false;
 
-			foreach(ICartoObj obj in myPersonalMapData.ObservableCollection)
+			//Tester si on click sur une pin
+			for (int i = 0; i < myPersonalMapData.ObservableCollection.Count; i++)
 			{
-				if(obj is POI)
+				ICartoObj obj = myPersonalMapData.ObservableCollection[i];
+				if (obj is POI)
 				{
 					Coordonnees coords = new Coordonnees(((POI)obj).Latitude, ((POI)obj).Longitude);
-					if (coords.IsPointClose(new Coordonnees(location.Latitude,location.Longitude),0.001))
+					if (coords.IsPointClose(new Coordonnees(mouseLocation.Latitude, mouseLocation.Longitude),0.001))
 					{
-						//Selectioner dans la listbox
-						//Afficher
+						Console.WriteLine("trouve: des = {0}",((POI)obj).Description);
+						PoiWindow poiWindow = new PoiWindow((POI)obj);
+						poiWindow.ShowDialog();
+						myPersonalMapData.ObservableCollection[i] = poiWindow.Poi;
+						poiWindow.Close();
+						pinPresent = true;
+						break;
 					}
 				}
 				if(obj is Polyline)
 				{
-
+					foreach(ICartoObj cartoObj in ((Polyline)obj).Collection)
+					{
+						if (((Coordonnees)cartoObj).IsPointClose(new Coordonnees(mouseLocation.Latitude, mouseLocation.Longitude), 0.001))
+						{
+							ListBox.SelectedItem = ((Polyline)obj).Description;
+							PolylineWindow polylineWindow = new PolylineWindow((Polyline)obj);
+							polylineWindow.ShowDialog();
+							myPersonalMapData.ObservableCollection[ListBox.SelectedIndex] = polylineWindow.Polyline;
+							polylineWindow.Close();
+							pinPresent = true;
+							break;
+						}
+					}
 				}
 			}
 
-			PoiWindow poiWindow = new PoiWindow();
-			poiWindow.Owner = this;
-			poiWindow.Latitude = location.Latitude.ToString();
-			poiWindow.Longitude = location.Longitude.ToString();
-			poiWindow.ShowDialog();
-			if (poiWindow.Poi != null)
+			if(!pinPresent)
 			{
-				myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
-				UpdateMainWindow();
+				//Créé une pin ou trajet
+				POI poi = new POI("", new Coordonnees(mouseLocation.Latitude, mouseLocation.Longitude));
+				PoiWindow poiWindow = new PoiWindow();
+				poiWindow.Latitude = poi.Latitude.ToString();
+				poiWindow.Longitude = poi.Longitude.ToString();
+				poiWindow.Description = "";
+				poiWindow.ShowDialog();
+				Console.WriteLine("desc: {0}",poiWindow.Description);
+				if(poiWindow.Poi != null)
+					myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
+				poiWindow.Close();
 			}
-			poiWindow.Close();
+			UpdateMainWindow();
 		}
-		private void Map_LeftButtonDown(object sender, MouseEventArgs e)
-		{
-			Point mousePosition = e.GetPosition(Map);
-			Location location = Map.ViewportPointToLocation(mousePosition);
-			Console.WriteLine("Latutide! {0} Longitude {1}",location.Latitude,location.Longitude);
-		}
-
 		
 		private void Map_RightButtonDown(object sender, MouseEventArgs e)
 		{
+			e.Handled = true;
+		}
+
+		private void Map_KeyDown(object sender, KeyEventArgs e)
+		{
+			if(e.Key == Key.Enter)
+			{
+				//Cree le traject/surface
+				Console.WriteLine("Coucou enter");
+			}
 			
+			e.Handled = true;
 		}
 	}
 }
