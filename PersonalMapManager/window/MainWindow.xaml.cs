@@ -3,6 +3,7 @@ using MyCartographyObjects;
 using PersonalMapManager.window;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.IO;
@@ -39,6 +40,7 @@ namespace PersonalMapManager
 		//Variables Membres
 		public MyPersonalMapData myPersonalMapData;
 		private OptionWindow _optionWindow;
+		private List<Coordonnees> collectionCoordonnees;
 	
 		//Constructeurs
 		public MainWindow()
@@ -46,6 +48,7 @@ namespace PersonalMapManager
 			InitializeComponent();
 			DataContext = this;
 			Map.Center = new Location(50.620090, 5.581406);
+			collectionCoordonnees = new List<Coordonnees> { };
 			LoginWindow loginWindow = new LoginWindow();
 			Focusable = false;
 			this.Show();
@@ -56,14 +59,10 @@ namespace PersonalMapManager
 				System.Environment.Exit(1);
 			}
 			UpdateMainWindow();
-			Map.MouseDoubleClick += new MouseButtonEventHandler(Map_DoubleClick);
-			Map.MouseRightButtonDown += new MouseButtonEventHandler(Map_RightButtonDown);
-			Map.KeyDown += new KeyEventHandler(Map_KeyDown);
-		}
-
-		private MouseButtonEventHandler Map_DoubleClick()
-		{
-			throw new NotImplementedException();
+			//Map.MouseDoubleClick += new MouseButtonEventHandler(Map_DoubleClick);
+			//Map.MouseRightButtonDown += new MouseButtonEventHandler(Map_RightButtonDown);
+			//Map.KeyDown += new KeyEventHandler(Map_KeyDown);
+			
 		}
 
 		//Méthodes
@@ -76,6 +75,7 @@ namespace PersonalMapManager
 			LoginWindow loginWindow = new LoginWindow();
 			loginWindow.Owner = this;
 			loginWindow.ShowDialog();
+			collectionCoordonnees.Clear();
 			UpdateMainWindow();
 		}
 		private void Save_Click(object sender, RoutedEventArgs e)
@@ -363,7 +363,7 @@ namespace PersonalMapManager
 								Pushpin pushpin = new Pushpin();
 								pushpin.Opacity = 0.7;
 								pushpin.Location = new Location(poi.Latitude, poi.Longitude);
-								pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
+								pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
 								Map.Children.Add(pushpin);
 							}
 							mapPolyline.Locations.Add(new Location(((Coordonnees)obj).Latitude, ((Coordonnees)obj).Longitude));
@@ -387,13 +387,33 @@ namespace PersonalMapManager
 						Map.Children.Add(mapPolygon);
 					}
 				}
+				for(int i = 0; i < collectionCoordonnees.Count; i++)
+				{
+					if(collectionCoordonnees[i] is POI)
+					{
+						POI poi = (POI)collectionCoordonnees[i];
+						Pushpin pushpin = new Pushpin();
+						pushpin.Opacity = 0.7;
+						pushpin.Location = new Location(poi.Latitude, poi.Longitude);
+						pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
+						Map.Children.Add(pushpin);
+					}
+					else if(collectionCoordonnees[i] is Coordonnees)
+					{
+						Coordonnees coordonnees = collectionCoordonnees[i];
+						Pushpin pushpin = new Pushpin();
+						pushpin.Opacity = 0.7;
+						pushpin.Location = new Location(coordonnees.Latitude, coordonnees.Longitude);
+						pushpin.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
+						Map.Children.Add(pushpin);
+					}
+				}
 			}
 			ListBox.SelectedIndex = ListBox.Items.Count - 1;
 		}
 		private void Map_DoubleClick(object sender, MouseEventArgs e)
 		{
 			Console.WriteLine("Double click!");
-			e.Handled = true;
 			Point mousePosition = e.GetPosition(Map);
 			Location mouseLocation = Map.ViewportPointToLocation(mousePosition);
 			bool pinPresent = false;
@@ -432,6 +452,7 @@ namespace PersonalMapManager
 						}
 					}
 				}
+				e.Handled = true;
 			}
 
 			if(!pinPresent)
@@ -443,7 +464,6 @@ namespace PersonalMapManager
 				poiWindow.Longitude = poi.Longitude.ToString();
 				poiWindow.Description = "";
 				poiWindow.ShowDialog();
-				Console.WriteLine("desc: {0}",poiWindow.Description);
 				if(poiWindow.Poi != null)
 					myPersonalMapData.ObservableCollection.Add(poiWindow.Poi);
 				poiWindow.Close();
@@ -453,17 +473,97 @@ namespace PersonalMapManager
 		
 		private void Map_RightButtonDown(object sender, MouseEventArgs e)
 		{
+			Point mousePosition = e.GetPosition(Map);
+			Location mouseLocation = Map.ViewportPointToLocation(mousePosition);
+			//Ajouter la coordonne a une list temp et pin
+			if(collectionCoordonnees.Count == 0)
+			{
+				PoiWindow poiWindow = new PoiWindow();
+				poiWindow.Description = "Début";
+				poiWindow.Latitude = mouseLocation.Latitude.ToString();
+				poiWindow.Longitude = mouseLocation.Longitude.ToString();
+				poiWindow.ShowDialog();
+				if(poiWindow.Poi != null)
+				{
+					collectionCoordonnees.Add(poiWindow.Poi);
+				}
+				poiWindow.Close();
+			}
+			else
+			{
+				collectionCoordonnees.Add(new Coordonnees(mouseLocation.Latitude, mouseLocation.Longitude));
+			}
+			UpdateMainWindow();
+			Map.Focus();
 			e.Handled = true;
 		}
 
 		private void Map_KeyDown(object sender, KeyEventArgs e)
 		{
+			Console.WriteLine("Map_KeyDown");
 			if(e.Key == Key.Enter)
 			{
-				//Cree le traject/surface
-				Console.WriteLine("Coucou enter");
+				Console.WriteLine(collectionCoordonnees.Count);
+				if(collectionCoordonnees.Count > 1)
+				{
+					if (collectionCoordonnees.Count > 2 && collectionCoordonnees[0].IsPointClose(new Coordonnees(collectionCoordonnees[collectionCoordonnees.Count - 1].Latitude, collectionCoordonnees[collectionCoordonnees.Count - 1].Longitude), 0.001))
+					{
+						//Cree la surface
+						//Modifier tout les elements en Coordonnees
+						for (int i = 0; i < collectionCoordonnees.Count; i++)
+						{
+							if (collectionCoordonnees[i] is POI)
+							{
+								collectionCoordonnees[i] = new Coordonnees(collectionCoordonnees[i].Latitude, collectionCoordonnees[i].Longitude);
+							}
+						}
+						collectionCoordonnees.RemoveAt(collectionCoordonnees.Count - 1);
+						PolygonWindow polygonWindow = new PolygonWindow();
+						polygonWindow.Collection = collectionCoordonnees;
+						polygonWindow.Remplissage = "Red";
+						polygonWindow.Contour = "Black";
+						polygonWindow.Opacite = 0.5;
+						polygonWindow.ShowDialog();
+						if (polygonWindow.Polygon != null)
+						{
+							myPersonalMapData.ObservableCollection.Add(polygonWindow.Polygon);
+							collectionCoordonnees.Clear();
+						}
+						polygonWindow.Close();
+					}
+					else
+					{
+						//Modifier le dernier element en POI
+						Coordonnees coordonnees = collectionCoordonnees[collectionCoordonnees.Count - 1];
+						collectionCoordonnees.RemoveAt(collectionCoordonnees.Count - 1);
+						POI poi = new POI("Fin", new Coordonnees(coordonnees.Latitude, coordonnees.Longitude));
+						collectionCoordonnees.Add(poi);
+
+						//Fabrique la polyline
+						PolylineWindow polylineWindow = new PolylineWindow();
+						polylineWindow.Collection = collectionCoordonnees;
+						polylineWindow.Couleur = "Black";
+						polylineWindow.Epaisseur = "5";
+						polylineWindow.Description = ((POI)collectionCoordonnees[0]).Description + " vers " + ((POI)collectionCoordonnees[collectionCoordonnees.Count - 1]).Description;
+						polylineWindow.ShowDialog();
+						if (polylineWindow.Polyline != null)
+						{
+							//Ajoute tout
+							myPersonalMapData.ObservableCollection.Add(polylineWindow.Polyline);
+							collectionCoordonnees.Clear();
+						}
+						else
+						{
+							POI p = (POI)collectionCoordonnees[collectionCoordonnees.Count - 1];
+							Coordonnees coods = new Coordonnees(p.Latitude, p.Longitude);
+							collectionCoordonnees.RemoveAt(collectionCoordonnees.Count - 1);
+							collectionCoordonnees.Add(coods);
+						}
+						polylineWindow.Close();
+					}
+					UpdateMainWindow();
+				}
 			}
-			
 			e.Handled = true;
 		}
 	}

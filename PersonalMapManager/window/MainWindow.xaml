@@ -105,7 +105,7 @@
 		<GridSplitter Grid.Row="2" Grid.Column="1" Width="5" Background="Black" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
 		<ListBox x:Name="ListBox" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Gray" Foreground="AliceBlue" />
 
-		<m:Map x:Name="Map" Mode="AerialWithLabels" Grid.Column="2" Grid.Row="2" ZoomLevel="16" CredentialsProvider="AnZMlBjpnJpG5vB8rNtkO6LqVURsdM8AOwxZKImUP_Oqte2VkoIeY526xINnZhiV"/>
+		<m:Map x:Name="Map" Focusable="True" MouseDoubleClick="Map_DoubleClick" MouseRightButtonDown="Map_RightButtonDown" KeyDown="Map_KeyDown" Mode="AerialWithLabels" Grid.Column="2" Grid.Row="2" ZoomLevel="16" CredentialsProvider="AnZMlBjpnJpG5vB8rNtkO6LqVURsdM8AOwxZKImUP_Oqte2VkoIeY526xINnZhiV"/>
 
 	</Grid>
 </Window>

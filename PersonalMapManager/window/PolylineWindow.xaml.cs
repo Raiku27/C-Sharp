@@ -165,7 +165,32 @@ namespace PersonalMapManager.window
 				return _stringLongitude;
 			}
 		}
+		public List<Coordonnees> Collection
+		{
+			set
+			{
+				if(_temp.Collection == null)
+				{
+					_temp.Collection = new List<Coordonnees> { };
+				}
+				foreach (Coordonnees coords in value)
+				{
+					if(coords is Coordonnees)
+					{
+						_temp.Collection.Add(coords);
+						ListBoxCoordonnees.Items.Add(coords.ToString());
+					}
+					else if(coords is POI)
+					{
+						_temp.Collection.Add((POI)coords);
+						ListBoxCoordonnees.Items.Add(new POI(((POI)coords).Description, new Coordonnees(((POI)coords).Latitude, ((POI)coords).Longitude)).ToString());
+					}
+					ListBoxCoordonnees.SelectedIndex = ListBoxCoordonnees.Items.Count - 1;
+				}
+			}
+		}
 
+		
 		//Méthodes
 		private void ButtonAjouter_Click(object sender, RoutedEventArgs e)
 		{
@@ -207,6 +232,7 @@ namespace PersonalMapManager.window
 			if(hasAppliquerBeenClicked)
 			{
 				_polyline = _temp;
+				_polyline.Collection = _temp.Collection;
 				Hide();
 			}
 		}

@@ -192,6 +192,21 @@ namespace PersonalMapManager.window
 				return _longitude;
 			}
 		}
+		public List<Coordonnees> Collection
+		{
+			set
+			{
+				if(_temp.Collection == null)
+				{
+					_temp.Collection = new List<Coordonnees> { };
+				}
+				foreach (Coordonnees coords in value)
+				{
+					_temp.Collection.Add(coords);
+					ListBoxCoordonnees.Items.Add(coords.ToString());
+				}
+			}
+		}
 		//Méthodes
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
