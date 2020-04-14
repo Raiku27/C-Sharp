@@ -99,6 +99,7 @@ namespace PersonalMapManager.window
 			folderBrowserDialog.ShowDialog();
 
 			((MainWindow)Owner).myPersonalMapData.Path = folderBrowserDialog.SelectedPath;
+			Path = folderBrowserDialog.SelectedPath;
         }
 		private void ButtonAnnuler_Click(object sender, RoutedEventArgs e)
 		{

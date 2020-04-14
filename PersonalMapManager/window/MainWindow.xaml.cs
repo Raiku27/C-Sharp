@@ -95,7 +95,7 @@ namespace PersonalMapManager
 			POI newPOI = new POI();
 			string[] lines = File.ReadAllLines(openFileDlg.FileName);
 			Console.WriteLine(lines.Length);
-			if(lines.Length > 1)
+			if(lines.Length > 2)
 			{
 				//Erreur on essaye d'importer un Trajet
 				MessageBox.Show("Erreur,impossible d'ajouter un traject comme POI!");
@@ -145,16 +145,16 @@ namespace PersonalMapManager
 				MessageBox.Show("Erreur,impossible d'ajouter un POI comme trajet!");
 				return;
 			}
-
 			for(int i = 0; i < lines.Length; i++)
 			{
 				string[] lines2 = lines[i].Split(';');
-				newPolyline.Collection.Add(new Coordonnees(double.Parse(lines2[0]), double.Parse(lines2[1])));
-				newPolyline.Description = lines2[2];
+				newPolyline.Collection.Add(new POI(lines2[2],new Coordonnees(double.Parse(lines2[0]), double.Parse(lines2[1]))));
+				if(i == 0)
+					newPolyline.Description = lines2[2];
+				if (i == lines.Length - 1)
+					newPolyline.Description += " vers " + lines2[2];
 			}
-
 			myPersonalMapData.ObservableCollection.Add(newPolyline);
-			ListBox.Items.Add("Trajet: " + newPolyline.Description);
 
 			UpdateMainWindow();
 		}
@@ -175,13 +175,9 @@ namespace PersonalMapManager
 					{
 						if(coords is POI)
 						{
-						
+							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString() + ";" + ((POI)coords).Description);
 						}
-						if(polyline.Collection.ElementAt(0) == coords)
-						{
-							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString() + ";" + polyline.Description);
-						}
-						else
+						else if(coords is Coordonnees)
 						{
 							text.Add(coords.Latitude.ToString() + ";" + coords.Longitude.ToString());
 						}
@@ -321,6 +317,7 @@ namespace PersonalMapManager
 					Focusable = true;
 				}
 			}
+			Focus();
 		}
 		
 		public void OnUpdateGUI(object source, UpdateGUIEventArgs e)
@@ -353,7 +350,7 @@ namespace PersonalMapManager
 						mapPolyline.Opacity = 0.7;
 						mapPolyline.StrokeThickness = p.Epaisseur;
 						ListBox.Items.Add("Trajet: " + p.Description);
-						mapPolyline.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+						mapPolyline.Stroke = new SolidColorBrush(p.Color);
 						mapPolyline.Locations = new LocationCollection();
 						foreach (object obj in p.Collection)
 						{
