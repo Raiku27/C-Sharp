@@ -8,3 +8,5 @@
 3) Enter Crée le Traject ou la Surface
 
 Pour crée une surface, dessiner la forme et placer le dernier point sur le premier, attention a bien zoomer jusqu'au maximum pour être précis.
+
+<img src="Images/Map.PNG">
